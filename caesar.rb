@@ -1,12 +1,12 @@
-def caesar_cipher (string, number) do
+def caesar_cipher (string, number) 
   length = string.length   
   new_string = ""
   string.each_char do |char|
     new_char = ""
     if is_upcase?(char)  
-      new_char = upcase_char_ord(char).chr
+      new_char = upcase_char_ord(char, number).chr
     else 
-      new_char = lowcase_char_ord(char).chr
+      new_char = lowcase_char_ord(char, number).chr
     end
     new_string << new_char 
   end
@@ -20,18 +20,20 @@ def is_upcase? (character)
   false
 end
 
-def upcase_char_ord (character)
-  new_character_ordinal = character.ord + 5
+def upcase_char_ord (character, number)
+  new_character_ordinal = character.ord + number
   if new_character_ordinal > "Z".ord
     return corrected_character_ordinal = "Z".ord - new_character_ordinal + 64
   end
   new_character_ordinal
 end
 
-def lowcase_char_ord (char)
-  new_character_ordinal = char.ord + 5
+def lowcase_char_ord (character, number)
+  new_character_ordinal = character.ord + number
   if new_character_ordinal > "z".ord
     return corrected_character_ordinal = "z".ord - new_character_ordinal + 96
   end
   new_character_ordinal
 end
+
+puts caesar_cipher("abc", 1)
