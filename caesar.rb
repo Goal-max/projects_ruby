@@ -37,4 +37,8 @@ def lowcase_char_ord (character, number)
   new_character_ordinal
 end
 
-puts caesar_cipher("Z Aa", 1)
+string = "Z Aa"
+shift_factor = 4
+puts "string is: #{string}"
+puts "shift factor is: #{shift_factor}"
+puts caesar_cipher(string, shift_factor)
