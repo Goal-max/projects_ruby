@@ -6,7 +6,7 @@ def caesar_cipher (string, number)
     if is_upcase?(char)  
       new_char = upcase_char_ord(char, number).chr
     else 
-      new_char = lowcase_char_ord(char, number).chr
+      new_char = lowcase_char_ord(char, number)
     end
     new_string << new_char 
   end
@@ -31,9 +31,9 @@ end
 def lowcase_char_ord (character, number)
   new_character_ordinal = character.ord + number
   if new_character_ordinal > "z".ord
-    return corrected_character_ordinal = "z".ord - new_character_ordinal + 96
+    return corrected_character_ordinal = new_character_ordinal - "z".ord + 96
   end
   new_character_ordinal
 end
 
-puts caesar_cipher("abc", 1)
+puts caesar_cipher("zy z", 1)
