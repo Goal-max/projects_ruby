@@ -1,5 +1,4 @@
 def caesar_cipher (string, number) 
-  length = string.length   
   new_string = ""
   string.each_char do |char|
     new_char = ""
