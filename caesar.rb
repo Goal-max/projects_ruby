@@ -2,8 +2,8 @@ def caesar_cipher (string, number)
   new_string = ""
   string.each_char do |char|
     new_char = ""
-    if char == " "
-      new_char = " "
+    if !((/[A-Za-z]/).match?(char))
+      new_char = char
     elsif is_upcase?(char) 
       new_char = upcase_char_ord(char, number).chr
     else 
@@ -37,8 +37,8 @@ def lowcase_char_ord (character, number)
   new_character_ordinal
 end
 
-string = "Z Aa"
-shift_factor = 4
+string = "What a string!"
+shift_factor = 5
 puts "string is: #{string}"
 puts "shift factor is: #{shift_factor}"
 puts caesar_cipher(string, shift_factor)
