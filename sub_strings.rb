@@ -1,9 +1,11 @@
-dictionary = ["below", "down", "go", "horn", "how", "howdy", "it", "I", "low",
-"own", "part", "partner", "sit"]
+dictionary = ["below", "down", "go", "going", "horn", "how", "howdy", "it", "i",
+"low", "own", "part", "partner", "sit"]
 def substrings (string, dictionary)
+  string = string.downcase
   array_of_strings = string.split(' ')
   list = {}
   dictionary.each do |word| 
+    word = word.downcase
     array_of_strings.each do |element| 
       if element.include?(word)
         if list.include?(word)
