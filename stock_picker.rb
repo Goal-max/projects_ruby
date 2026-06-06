@@ -1,6 +1,8 @@
 def stock_picker (array_prices)
-  puts day_bought_sold_and_profit(array_prices)
-  array_profits = day_bought_sold_and_profit 
+  hash_day_profits = day_bought_sold_and_profit(array_prices)
+  profits = hash_day_profits.values
+  max_profit = profits.max
+  p day_with_max_profit = hash_day_profits.key(max_profit)
 end
 
 def day_bought_sold_and_profit (prices)
