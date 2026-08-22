@@ -28,8 +28,11 @@ def new_letter(character, number)
   new_letter_ordinal.chr
 end
 
+#input
 string = 'What a string!'
 shift_factor = 5
+
+#output
 puts "string is: #{string}"
 puts "shift factor is: #{shift_factor}"
 puts "deciphered string: #{caesar_cipher(string, shift_factor)}"
