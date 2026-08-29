@@ -4,6 +4,6 @@ class Player
   end
 
   def choice(row, column)
-    board.send [column] = name
+    board.choice(row, column, name)
   end
 end

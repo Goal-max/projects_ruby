@@ -1,16 +1,13 @@
 class Board
-  attr_accessor :top, :middle, :bottom
+  attr_reader :board_info
 
   def initialize
-    @top = []
-    @middle = []
-    @bottom = []
+    @board_info = { 'top' => {}, 'middle' => {}, 'bottom' => {} }
   end
 
-  def choice(row, column, player)
-    position = send row
-    if position[column].nil?
-      position[column] = player
+  def choice(row, column, player_name)
+    if @board_info[row][column].nil?
+      @board_info[row][column] = player_name
     else
       puts 'Position taken. Please try again'
     end
