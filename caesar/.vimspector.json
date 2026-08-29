@@ -1,0 +1,13 @@
+{
+  "$schema": "https://puremourning.github.io/vimspector/schema/vimspector.schema.json",
+  "configurations": {
+    "run": {
+      "adapter": {
+        "port": 54321
+      },
+      "configuration": {
+        "request": "attach"
+      }
+    }
+  }
+}
