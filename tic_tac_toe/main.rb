@@ -4,7 +4,7 @@ require_relative 'lib/board'
 board = Board.new
 board.choice('top', 'middle', 'peter')
 
-def check_win?(array)
+def win?(array)
   array.all?(array[0])
 end
 
@@ -32,19 +32,28 @@ winning = {
                       diagonal_wins(rows, columns.reverse)]
 }
 
-# find names at each of 3 winning positions
-winning.each_value do |winning_type|
-  winning_type.each do |win_option|
-    array = []
-    win_option.each do |position|
-      position.each_pair do |row, column|
-        array << board.board_info.dig(row, column)
+# find names at winning positions
+def search_winner(winning, board)
+  winning.each_value do |winning_type|
+    winning_type.each do |win_option|
+      array_of_names = []
+      win_option.each do |position|
+        position.each_pair do |row, column|
+          array_of_names << board.board_info.dig(row, column)
+        end
       end
+      win?(array_of_names)
+      puts "array is #{array_of_names}"
     end
-    check_win?(array)
-    puts "array is #{array}"
   end
 end
 
-winning.each_value { |value| p value }
+def find_names(position)
+  position.each_pair do |row, column|
+    board.board_info.dig(row, column)
+  end
+end
+
+search_winner(winning, board)
+
 binding.b
