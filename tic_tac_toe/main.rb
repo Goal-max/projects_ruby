@@ -9,19 +9,17 @@ def check_win?(array, player_name)
 end
 
 def straight_wins(position1, position2)
-  hash = {}
-  position1.each do |element|
-    hash[element] = position2
+  position1.map do |first|
+    position2.map do |second|
+      { first => second }
+    end
   end
-  hash
 end
 
 def diagonal_wins(rows, columns)
-  hash = {}
-  rows.each_index do |index|
-    hash[rows[index]] = columns[index]
+  rows.each_with_index.map do |element, index|
+    { rows[index] => columns[index] }
   end
-  hash
 end
 
 rows = %w[top middle bottom]
@@ -35,11 +33,15 @@ winning = {
 }
 
 # find names at each of 3 winning positions
-winning.each_pair do |key, value|
+=begin
+winning.each_value do |winning_type|
   array = []
-  value.map do |column|
+  winning_type.each_pair do |key, column|
     array << board.board_info.dig(key, column)
   end
   puts "array is #{array}"
 end
+=end
+
+winning.each_value { |value| p value }
 binding.b
