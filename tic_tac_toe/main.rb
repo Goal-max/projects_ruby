@@ -12,7 +12,8 @@ winning = {
   horizontal_wins => straight_wins(rows, columns),
   vertical_wins => straight_wins(columns, rows),
   # diagonal wins
-  'left' => [top],
+  diagonal_wins => [diagonal_wins(rows, columns),
+  diagonal_wins(rows, columns.reverse)]
 }
 
 # find names at each of 3 winning positions
@@ -38,14 +39,15 @@ end
 
 def diagonal_wins(rows, columns)
   hash = {}
+  # array_indices = [0, 1, 2]
+  # column_indices = [[array_indices], [array_indices.reverse]]
   rows.each_index do |index|
-    column_indices = [index, index f- 1]
-    if index == 2
-      hash[rows[index]] = columns[0]
-    else
-      hash[rows[index]] = columns[index + 1]
-    end
+   # column_indices.each_index do |outer_array|
+    #  outer_array.each_index do |column_index|
+    hash[rows[index]] = columns[index]
   end
+  hash
 end
 
+def 
 binding.b
