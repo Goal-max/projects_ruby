@@ -37,7 +37,15 @@ def straight_wins(position1, position2)
 end
 
 def diagonal_wins(rows, columns)
-  rows.each_index
+  hash = {}
+  rows.each_index do |index|
+    column_indices = [index, index f- 1]
+    if index == 2
+      hash[rows[index]] = columns[0]
+    else
+      hash[rows[index]] = columns[index + 1]
+    end
+  end
 end
 
 binding.b
