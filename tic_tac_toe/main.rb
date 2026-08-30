@@ -2,10 +2,12 @@ require 'debug'
 require_relative 'lib/board'
 
 board = Board.new
+board.choice('top', 'left', 'peter')
 board.choice('top', 'middle', 'peter')
+board.choice('top', 'right', 'peter')
 
 def win?(array)
-  array.all?(array[0])
+  array.all?(array[0]) && !array[0].nil?
 end
 
 def straight_wins(position1, position2)
@@ -37,13 +39,17 @@ def search_winner(winning, board)
   winner = nil
   winning.each_value do |winning_type|
     winning_type.each do |win_option|
-      array_of_names = win_option.map do |position|
-        board.find_name(position)
-      end
+      array_of_names = board.find_name(win_option)
+      binding.b
       winner = array_of_names[0] if win?(array_of_names)
+      break if winner
     end
+    break if winner
   end
-  binding.b
+  winner
 end
 
+def play_round 
+  
+end
 search_winner(winning, board)

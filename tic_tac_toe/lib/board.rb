@@ -13,9 +13,13 @@ class Board
     end
   end
 
-  def find_name(position)
-    position.each_pair do |row, column|
-      return board_info.dig(row, column)
+  def find_name(win_option)
+    array = []
+    win_option.map do |position|
+      position.each_pair do |row, column|
+        array << board_info.dig(row, column)
+      end
     end
+    array
   end
 end
