@@ -1,8 +1,9 @@
 class Board
-  attr_reader :board_info
+  attr_reader :board_info, :players
 
   def initialize
     @board_info = { 'top' => {}, 'middle' => {}, 'bottom' => {} }
+    @players = []
   end
 
   def choice(row, column, player_name)

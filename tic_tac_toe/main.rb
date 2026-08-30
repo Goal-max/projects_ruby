@@ -1,5 +1,6 @@
 require 'debug'
 require_relative 'lib/board'
+require_relative 'lib/player'
 
 board = Board.new
 board.choice('top', 'left', 'peter')
@@ -42,14 +43,25 @@ def search_winner(winning, board)
       array_of_names = board.find_name(win_option)
       binding.b
       winner = array_of_names[0] if win?(array_of_names)
-      break if winner
+      reak if winner
     end
     break if winner
   end
   winner
 end
 
-def play_round 
-  
+def ask_name(player)
+  puts "#{player} please enter your name:"
 end
-search_winner(winning, board)
+
+board = Board.new
+ask_name('player one')
+player_one = Player.new(gets.chomp)
+puts "Player one is #{player_one}" 
+
+ask_name('player two')
+player_two = Player.new(gets.chomp)
+puts "Player two is #{player_two}"
+
+binding.b
+
