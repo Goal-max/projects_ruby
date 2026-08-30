@@ -43,25 +43,17 @@ def search_winner(winning, board)
       array_of_names = board.find_name(win_option)
       binding.b
       winner = array_of_names[0] if win?(array_of_names)
-      reak if winner
+      break if winner
     end
     break if winner
   end
   winner
 end
 
-def ask_name(player)
-  puts "#{player} please enter your name:"
-end
-
 board = Board.new
-ask_name('player one')
-player_one = Player.new(gets.chomp)
-puts "Player one is #{player_one}" 
+player_one = Player.create_player('Player one')
+player_two = Player.create_player('Player two')
 
-ask_name('player two')
-player_two = Player.new(gets.chomp)
-puts "Player two is #{player_two}"
-
+player_one.get_choice(board)
 binding.b
 
