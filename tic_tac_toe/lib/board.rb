@@ -12,4 +12,10 @@ class Board
       puts 'Position taken. Please try again'
     end
   end
+
+  def find_name(position)
+    position.each_pair do |row, column|
+      return board_info.dig(row, column)
+    end
+  end
 end

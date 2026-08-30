@@ -34,26 +34,16 @@ winning = {
 
 # find names at winning positions
 def search_winner(winning, board)
+  winner = nil
   winning.each_value do |winning_type|
     winning_type.each do |win_option|
-      array_of_names = []
-      win_option.each do |position|
-        position.each_pair do |row, column|
-          array_of_names << board.board_info.dig(row, column)
-        end
+      array_of_names = win_option.map do |position|
+        board.find_name(position)
       end
-      win?(array_of_names)
-      puts "array is #{array_of_names}"
+      winner = array_of_names[0] if win?(array_of_names)
     end
   end
-end
-
-def find_names(position)
-  position.each_pair do |row, column|
-    board.board_info.dig(row, column)
-  end
+  binding.b
 end
 
 search_winner(winning, board)
-
-binding.b
