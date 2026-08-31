@@ -1,8 +1,8 @@
 class Board
   attr_reader :board_info, :players
 
-  ROWS = %w[top middle bottom]
-  COLUMNS = %w[left middle right]
+  ROWS = %w[A B C]
+  COLUMNS = %w[1 2 3]
 
   def initialize
     @board_info = create_board_structure
@@ -89,7 +89,7 @@ class Board
       end
       break if winner
     end
-    puts "#{winner} has won. Game over" if winner
+    puts "#{winner.name} has won. Game over" if winner
     winner
   end
 
