@@ -68,6 +68,14 @@ class Board
   end
 
   def display
+    columns = []
+    board_info.each_pair do |row, key|
+      key.each_key do |column|
+        columns << column
+      end
+    end
+    column_string = columns.join(" \t ").insert(0, " \t ")
+    puts column_string
     puts "\t 1 \t 2 \t 3"
     puts "A \t"
     puts "B \t"
