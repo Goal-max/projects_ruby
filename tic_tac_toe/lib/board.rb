@@ -5,7 +5,6 @@ class Board
   COLUMNS = %w[left middle right]
 
   def initialize
-    # @board_info = { 'top' => {}, 'middle' => {}, 'bottom' => {} }
     @board_info = create_board_structure
     @players = []
   end
@@ -80,6 +79,9 @@ class Board
     winner
   end
 
+  def print_winnings
+    WINNING
+  end
   def display
     column_string = COLUMNS.join("\t").insert(0, " \t \t ")
     puts column_string
@@ -94,5 +96,6 @@ class Board
       end
       puts array.join("\t ")
     end
+  puts ''
   end
 end

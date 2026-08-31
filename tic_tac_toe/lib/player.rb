@@ -11,7 +11,7 @@ class Player
     puts "#{player}, please enter your name:"
     name = gets.chomp
     puts "#{player} is #{name}"
-    puts '------'
+    puts ''
     Player.new(name)
   end
 

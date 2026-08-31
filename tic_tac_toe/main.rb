@@ -4,6 +4,12 @@ require_relative 'lib/player'
 
 board = Board.new
 board.display
+board.board_info['top']['left'] = 'Tom'
+board.board_info['middle']['left'] = 'Tom'
+board.board_info['bottom']['left'] = 'Tom'
+board.search_winner
+binding.b
+
 
 player_one = Player.create_player('Player one')
 player_two = Player.create_player('Player two')
