@@ -1,3 +1,5 @@
+require_relative 'modify_string'
+
 class Player
   attr_reader :name
 
@@ -23,6 +25,16 @@ class Player
     puts 'Please enter column: 1, 2, 3'
     column = gets.chomp.strip
     board.choice(row, column, self)
+  end
+
+  def check_input(input)
+    upcased_input = input.upcase
+    input_array[0].match(/[A-Z]/)
+    input_array[1].match(/\d/)
+  end
+
+  def remove_whitespace
+    
   end
 
   def self.names
