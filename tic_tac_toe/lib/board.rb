@@ -6,8 +6,20 @@ class Board
 
   def initialize
     # @board_info = { 'top' => {}, 'middle' => {}, 'bottom' => {} }
-    @board_info = {}
+    @board_info = create_board_structure
     @players = []
+  end
+
+  def create_board_structure
+    hash = {}
+    ROWS.each do |row|
+      column_hash = {}
+      COLUMNS.each do |column|
+        column_hash[column] = nil
+      end
+      hash[row] = column_hash
+    end
+    hash
   end
 
   def self.straight_wins(position1, position2)
@@ -69,15 +81,8 @@ class Board
   end
 
   def display
-    columns = []
-    board_info.each_pair do |row, key|
-      key.each_key do |column|
-        columns << column
-      end
-    end
-    column_string = columns.join(" \t ").insert(0, " \t ")
+    column_string = COLUMNS.join(" \t ").insert(0, " \t ")
     puts column_string
-    puts "\t 1 \t 2 \t 3"
     puts "A \t"
     puts "B \t"
     puts "C \t"
