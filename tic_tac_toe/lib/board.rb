@@ -29,6 +29,14 @@ class Board
     end
   end
 
+  def self.vertical_wins(position1, position2)
+    position2.map do |second|
+      position1.map do |first|
+        { first => second }
+      end
+    end
+  end
+
   def self.diagonal_wins(rows, columns)
     rows.each_with_index.map do |element, index|
       { rows[index] => columns[index] }
@@ -37,7 +45,7 @@ class Board
 
   WINNING = {
     'horizontal_wins' => straight_wins(ROWS, COLUMNS),
-    'vertical_wins' => straight_wins(COLUMNS, ROWS),
+    'vertical_wins' => vertical_wins(ROWS, COLUMNS),
     'diagonal_wins' => [diagonal_wins(ROWS, COLUMNS),
                         diagonal_wins(ROWS, COLUMNS.reverse)]
   }
@@ -55,7 +63,12 @@ class Board
     array = []
     win_option.map do |position|
       position.each_pair do |row, column|
-        array << board_info.dig(row, column)
+        occupier = board_info.dig(row, column)
+        unless occupier.nil?
+          array << occupier
+        else
+          array << nil
+        end
       end
     end
     array
@@ -76,6 +89,7 @@ class Board
       end
       break if winner
     end
+    puts "#{winner} has won. Game over" if winner
     winner
   end
 

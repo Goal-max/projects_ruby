@@ -18,10 +18,10 @@ class Player
   def get_choice(board)
     board.display
     puts "#{name}, please enter row: top/middle/bottom"
-    row = gets.chomp
+    row = gets.chomp.strip
     puts ''
     puts 'Please enter column: left/middle/right'
-    column = gets.chomp
+    column = gets.chomp.strip
     board.choice(row, column, self)
   end
 
