@@ -1,23 +1,41 @@
 class Board
   attr_reader :board_info, :players
 
-  WINNING = {
-    'horizontal_wins' => straight_wins(rows, columns),
-    'vertical_wins' => straight_wins(columns, rows),
-    'diagonal_wins' => [diagonal_wins(rows, columns),
-                        diagonal_wins(rows, columns.reverse)]
-  }
+  ROWS = %w[top middle bottom]
+  COLUMNS = %w[left middle right]
 
   def initialize
     @board_info = { 'top' => {}, 'middle' => {}, 'bottom' => {} }
     @players = []
   end
 
-  def choice(row, column, player_name)
+  def self.straight_wins(position1, position2)
+    position1.map do |first|
+      position2.map do |second|
+        { first => second }
+      end
+    end
+  end
+
+  def self.diagonal_wins(rows, columns)
+    rows.each_with_index.map do |element, index|
+      { rows[index] => columns[index] }
+    end
+  end
+
+  WINNING = {
+    'horizontal_wins' => straight_wins(ROWS, COLUMNS),
+    'vertical_wins' => straight_wins(COLUMNS, ROWS),
+    'diagonal_wins' => [diagonal_wins(ROWS, COLUMNS),
+                        diagonal_wins(ROWS, COLUMNS.reverse)]
+  }
+
+  def choice(row, column, player)
     if @board_info[row][column].nil?
-      @board_info[row][column] = player_name
+      @board_info[row][column] = player
     else
       puts 'Position taken. Please try again'
+      player.get_choice(self)
     end
   end
 
@@ -31,12 +49,16 @@ class Board
     array
   end
 
+  def win?(array)
+    array.all?(array[0]) && !array[0].nil?
+  end
+
   # find names at winning positions
-  def search_winner(winning, board)
+  def search_winner
     winner = nil
-    winning.each_value do |winning_type|
+    WINNING.each_value do |winning_type|
       winning_type.each do |win_option|
-        array_of_names = board.find_name(win_option)
+        array_of_names = find_name(win_option)
         winner = array_of_names[0] if win?(array_of_names)
         break if winner
       end
@@ -45,4 +67,10 @@ class Board
     winner
   end
 
+  def display
+    puts "\t 1 \t 2 \t 3"
+    puts "A \t"
+    puts "B \t"
+    puts "C \t"
+  end
 end
