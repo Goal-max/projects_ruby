@@ -5,7 +5,8 @@ class Board
   COLUMNS = %w[left middle right]
 
   def initialize
-    @board_info = { 'top' => {}, 'middle' => {}, 'bottom' => {} }
+    # @board_info = { 'top' => {}, 'middle' => {}, 'bottom' => {} }
+    @board_info = {}
     @players = []
   end
 
