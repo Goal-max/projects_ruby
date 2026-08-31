@@ -81,10 +81,18 @@ class Board
   end
 
   def display
-    column_string = COLUMNS.join(" \t ").insert(0, " \t ")
+    column_string = COLUMNS.join("\t").insert(0, " \t \t ")
     puts column_string
-    puts "A \t"
-    puts "B \t"
-    puts "C \t"
+    board_info.each_pair do |row, columns|
+      array = ["#{row} \t"]
+      columns.each_value do |column|
+        if column.nil?
+          array << "-----"
+        else 
+          array << "#{column.name}"
+        end
+      end
+      puts array.join("\t ")
+    end
   end
 end

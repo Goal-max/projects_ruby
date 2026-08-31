@@ -3,6 +3,8 @@ require_relative 'lib/board'
 require_relative 'lib/player'
 
 board = Board.new
+board.display
+
 player_one = Player.create_player('Player one')
 player_two = Player.create_player('Player two')
 
