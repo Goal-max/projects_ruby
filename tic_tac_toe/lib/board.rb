@@ -51,7 +51,9 @@ class Board
   }
 
   def choice(row, column, player)
-    if @board_info[row][column].nil?
+    binding.b
+    position_name = @board_info[row][column] 
+    if position_name.nil?
       @board_info[row][column] = player
     else
       puts 'Position taken. Please try again'

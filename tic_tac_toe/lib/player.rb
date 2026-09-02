@@ -1,33 +1,53 @@
-require_relative 'modify_string'
+require_relative 'lib/String'
 
 class Player
-  attr_reader :name
+
+  attr_reader :name, :board
 
   @@names = []
-  def initialize(name)
+  def initialize(name, board)
     @name = name
     @@names << name
+    @board = board
+    self
   end
 
-  def self.create_player(player)
+  def self.create_player(player, board)
     puts "#{player}, please enter your name:"
-    name = gets.chomp
+    name = gets.chomp.strip
     puts "#{player} is #{name}"
     puts ''
-    Player.new(name)
+    new(name, board)
   end
 
-  def get_choice(board)
+  def get_choice
     board.display
-    puts "#{name}, please enter row: A, B, C"
-    row = gets.chomp.strip
-    puts ''
-    puts 'Please enter column: 1, 2, 3'
-    column = gets.chomp.strip
-    board.choice(row, column, self)
+    puts 'Please enter row and column e.g. A2'
+    input = gets.chomp.strip
+    if input.empty?
+      puts 'No choice entered. Please try again.'
+      get_choice
+    else
+      process_input(input)
+    end
+  end
+  
+  def process_input(input)
+    binding.b
+    input_trimmed = input.remove_whitespace
+    if input_trimmed.length == 2 
+      row = input_trimmed.find_row 
+      column = input_trimmed.find_column
+      if row && column
+        board.choice(row, column, self)
+      else
+        get_choice
+      end
+    end
   end
 
   def check_input(input)
+    
     upcased_input = input.upcase
     input_array[0].match(/[A-Z]/)
     input_array[1].match(/\d/)

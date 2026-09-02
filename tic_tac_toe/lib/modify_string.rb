@@ -3,10 +3,6 @@ module ModifyString
     self.gsub(/\s/,'')
   end
 
-  def length_two?
-    self.length == 2
-  end
-  
   def find_row
     self.match(/[A-Z]/)
   end
@@ -15,3 +11,4 @@ module ModifyString
     self.match(/\d/)
   end
 end
+
