@@ -2,7 +2,17 @@ require 'debug'
 require_relative 'lib/board'
 require_relative 'lib/player'
 
-board = Board.new
+main_menu_items = [
+  '1. New game',
+  '2. Exit game'
+]
+
+def main_menu(main_menu_items)
+  puts main_menu_items
+  board = Board.new
+end
+
+main_menu(main_menu_items)
 
 player_one = Player.create_player('Player one', board)
 player_two = Player.create_player('Player two', board)

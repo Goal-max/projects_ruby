@@ -15,10 +15,10 @@ class Player
 
   def self.create_player(player, board)
     puts "#{player}, please enter your name:"
-    name = gets.chomp.strip
-    puts "#{player} is #{name}"
+    input = gets.chomp.strip
+    puts "#{player} is #{input}"
     puts ''
-    new(name, board)
+    new(input, board)
   end
 
   def get_choice
