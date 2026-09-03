@@ -1,6 +1,7 @@
-require_relative 'lib/String'
+require_relative 'modify_string'
 
 class Player
+  include ModifyString
 
   attr_reader :name, :board
 
@@ -34,10 +35,10 @@ class Player
   
   def process_input(input)
     binding.b
-    input_trimmed = input.remove_whitespace
+    input_trimmed = remove_whitespace(input)
     if input_trimmed.length == 2 
-      row = input_trimmed.find_row 
-      column = input_trimmed.find_column
+      row = find_row(input_trimmed)
+      column = find_column(input_trimmed)
       if row && column
         board.choice(row, column, self)
       else
@@ -47,14 +48,9 @@ class Player
   end
 
   def check_input(input)
-    
     upcased_input = input.upcase
     input_array[0].match(/[A-Z]/)
     input_array[1].match(/\d/)
-  end
-
-  def remove_whitespace
-    
   end
 
   def self.names

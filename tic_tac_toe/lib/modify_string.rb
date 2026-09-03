@@ -1,14 +1,14 @@
 module ModifyString 
-  def remove_whitespace
-    self.gsub(/\s/,'')
+  def remove_whitespace(string)
+    string.gsub(/\s/, '')
   end
 
-  def find_row
-    self.match(/[A-Z]/)
+  def find_row(string)
+    string.match(/[A-Z]/)[0]
   end
 
-  def find_column
-    self.match(/\d/)
+  def find_column(string)
+    string.match(/\d/)[0]
   end
 end
 
