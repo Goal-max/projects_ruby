@@ -21,30 +21,31 @@ class Player
     new(input, board)
   end
 
-  def get_choice
+  def find_choice
     board.display
     puts 'Please enter row and column e.g. A2'
-    input = gets.chomp.strip
-    if input.empty?
-      puts 'No choice entered. Please try again.'
-      get_choice
+    if input.nil?
+      find_choice
     else
       process_input(input)
     end
   end
+
+  def input
+    input = gets.chomp.strip
+    input = remove_whitespace(input)
+    if input.empty?
+      puts 'Invalid input entered. Please try again.'
+    else
+      input
+    end
+  end
   
   def process_input(input)
-    binding.b
-    input_trimmed = remove_whitespace(input)
-    if input_trimmed.length == 2 
-      row = find_row(input_trimmed)
-      column = find_column(input_trimmed)
-      if row && column
-        board.choice(row, column, self)
-      else
-        get_choice
-      end
-    end
+    find_choice unless input.length == 2
+    row = find_row(input)
+    column = find_column(input)
+    board.choice(row, column, self) if row && column
   end
 
   def check_input(input)

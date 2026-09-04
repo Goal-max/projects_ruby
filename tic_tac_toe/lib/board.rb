@@ -56,7 +56,7 @@ class Board
       binding.b
     else
       puts 'Position taken. Please try again'
-      player.get_choice
+      player.find_choice
     end
   end
 
