@@ -53,7 +53,6 @@ class Board
   def choice(row, column, player)
     if @board_info[row][column].nil?
       @board_info[row][column] = player
-      binding.b
     else
       puts 'Position taken. Please try again'
       player.find_choice
