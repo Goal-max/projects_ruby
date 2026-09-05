@@ -18,7 +18,7 @@ module ModifyString
   end
 
   def compare_array(input, reference)
-    result = input.chars.intersection(reference)
+    result = input.upcase.chars.intersection(reference)
     if result == []
       nil
     else
@@ -26,13 +26,5 @@ module ModifyString
     end
   end
 
-  def find_row(string)
-    string.upcase.match(/[A-Z]/)[0]
-  end
-
-  def find_column(string)
-    match = string.match(/\d/)
-    match[0] if match
-  end
 end
 
