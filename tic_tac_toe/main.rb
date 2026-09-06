@@ -1,6 +1,7 @@
 require 'debug'
 require_relative 'lib/board'
 require_relative 'lib/player'
+require_relative 'lib/modify_string'
 
 main_menu_items = [
   [1, 'New Game'],
@@ -13,18 +14,26 @@ def main_menu(main_menu_items)
   end
 end
 
-main_menu(main_menu_items)
+def menu
+  main_menu(main_menu_items)
+  ask_input
+end
+
+menu
 
 board = Board.new
-player_one = Player.create_player('Player one', board)
-player_two = Player.create_player('Player two', board)
+player_one = Player.new('Player one', board)
+player_two = Player.new('Player two', board)
 
 def play_round(player_one, player_two, board)
-  until board.search_winner
-    player_one.find_choice
-    break if board.search_winner
+  winner = nil
+  until winner
+    board.players.each do |player|
+      winner = board.search_winner
+      break if winner
 
-    player_two.find_choice
+      player.find_choice
+    end
   end
 end
 
