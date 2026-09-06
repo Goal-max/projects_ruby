@@ -5,14 +5,11 @@ class Player
 
   attr_reader :name, :board
 
-  @@player_list = []
-
   def initialize(player, board)
     puts "#{player}, please enter your name:"
     @name = ask_input
     puts "#{player} is #{name}"
     puts ''
-    @@player_list << self
     @board = board
     board.players << self
   end
@@ -24,6 +21,7 @@ class Player
     if input.nil?
       invalid_input
       find_choice
+    elsif input.upcase == 'q'
     else
       result = process_input(input)
       find_choice if result.nil?
@@ -38,9 +36,5 @@ class Player
     else
       invalid_input
     end
-  end
-
-  def self.names
-    @@names
   end
 end

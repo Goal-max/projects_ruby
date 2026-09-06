@@ -12,9 +12,7 @@ menu_numbers = main_menu_items.map do |item|
   item[0]
 end
 
-board = Board.new
-
-def play_round(player_one, player_two, board)
+def play_round(board)
   winner = nil
   until winner
     board.players.each do |player|
@@ -28,13 +26,14 @@ end
 
 input = nil
 until input == '2'
+  board = Board.new
   board.display_menu(main_menu_items)
   input = board.main_menu(menu_numbers)[0]
   next if input == '2'
 
   puts
-  player_one = Player.new('Player one', board)
-  player_two = Player.new('Player two', board)
-  play_round(player_one, player_two, board)
+  Player.new('Player one', board)
+  Player.new('Player two', board)
+  play_round(board)
   puts ''
 end

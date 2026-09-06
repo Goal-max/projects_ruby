@@ -19,7 +19,6 @@ module ModifyString
   end
 
   def format_input(input, reference)
-    input = remove_whitespace(input)
     result = input.upcase.chars.intersection(reference)
     if result == []
       nil

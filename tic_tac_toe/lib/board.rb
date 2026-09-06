@@ -9,11 +9,11 @@ class Board
   COLUMNS = %w[1 2 3]
 
   def initialize
-    @board_info = create_board_structure
+    @board_info = setup_board
     @players = []
   end
 
-  def create_board_structure
+  def setup_board
     hash = {}
     ROWS.each do |row|
       column_hash = {}
