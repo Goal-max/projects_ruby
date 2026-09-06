@@ -31,8 +31,8 @@ class Player
   end
 
   def process_input(input)
-    row = compare_array(input, board.class::ROWS)
-    column = compare_array(input, board.class::COLUMNS)
+    row = format_input(input, board.class::ROWS)
+    column = format_input(input, board.class::COLUMNS)
     if row && column
       board.choice(row[0], column[0], self)
     else

@@ -18,7 +18,7 @@ module ModifyString
     end
   end
 
-  def compare_array(input, reference)
+  def format_input(input, reference)
     input = remove_whitespace(input)
     result = input.upcase.chars.intersection(reference)
     if result == []

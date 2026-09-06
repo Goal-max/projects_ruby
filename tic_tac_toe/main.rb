@@ -4,26 +4,15 @@ require_relative 'lib/player'
 require_relative 'lib/modify_string'
 
 main_menu_items = [
-  [1, 'New Game'],
-  [2, 'Exit Progam']
+  ['1', 'New Game'],
+  ['2', 'Exit Progam']
 ]
 
-def main_menu(main_menu_items)
-  main_menu_items.each do |sub_item| 
-    puts "#{sub_item[0]}. #{sub_item[1]}"
-  end
+menu_numbers = main_menu_items.map do |item|
+  item[0]
 end
-
-def menu
-  main_menu(main_menu_items)
-  ask_input
-end
-
-menu
 
 board = Board.new
-player_one = Player.new('Player one', board)
-player_two = Player.new('Player two', board)
 
 def play_round(player_one, player_two, board)
   winner = nil
@@ -37,7 +26,14 @@ def play_round(player_one, player_two, board)
   end
 end
 
-play_round(player_one, player_two, board)
+input = nil
+until input == '2'
+  board.display_menu(main_menu_items)
+  input = board.main_menu(menu_numbers)[0]
+  binding.b
+  next if input == '2'
 
-binding.b
-
+  player_one = Player.new('Player one', board)
+  player_two = Player.new('Player two', board)
+  play_round(player_one, player_two, board)
+end

@@ -1,4 +1,8 @@
+require_relative 'modify_string'
+ 
 class Board
+  include ModifyString
+
   attr_reader :board_info, :players
 
   ROWS = %w[A B C]
@@ -103,13 +107,31 @@ class Board
       array = ["#{row} \t"]
       columns.each_value do |column|
         if column.nil?
-          array << "-----"
-        else 
+          array << '-----'
+        else
           array << "#{column.name}"
         end
       end
       puts array.join("\t ")
     end
-  puts ''
+    puts ''
+  end
+
+  def display_menu(main_menu_items)
+    puts 'Tic Tac Toe'
+    puts ''
+    puts 'Select choice:'
+    main_menu_items.each do |sub_item|
+      puts "#{sub_item[0]}. #{sub_item[1]}"
+    end
+  end
+
+  def main_menu(menu_numbers)
+    menu_choice = nil
+    until menu_choice
+      menu_choice = ask_input
+      menu_choice = format_input(menu_choice, menu_numbers)
+    end
+    menu_choice
   end
 end
