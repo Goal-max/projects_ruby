@@ -30,10 +30,11 @@ input = nil
 until input == '2'
   board.display_menu(main_menu_items)
   input = board.main_menu(menu_numbers)[0]
-  binding.b
   next if input == '2'
 
+  puts
   player_one = Player.new('Player one', board)
   player_two = Player.new('Player two', board)
   play_round(player_one, player_two, board)
+  puts ''
 end

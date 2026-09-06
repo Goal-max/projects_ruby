@@ -118,8 +118,9 @@ class Board
   end
 
   def display_menu(main_menu_items)
+    puts
     puts 'Tic Tac Toe'
-    puts ''
+    puts
     puts 'Select choice:'
     main_menu_items.each do |sub_item|
       puts "#{sub_item[0]}. #{sub_item[1]}"
