@@ -128,9 +128,10 @@ class Board
   end
 
   def main_menu(menu_numbers)
+    welcome = %('', 'Tic Tac Toe', '', 'Select Choice:')
     menu_choice = nil
     until menu_choice
-      menu_choice = ask_input
+      menu_choice = ask_input(welcome)
       menu_choice = format_input(menu_choice, menu_numbers)
     end
     menu_choice

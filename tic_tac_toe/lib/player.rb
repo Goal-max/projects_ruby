@@ -6,8 +6,8 @@ class Player
   attr_reader :name, :board
 
   def initialize(player, board)
-    puts "#{player}, please enter your name:"
-    @name = ask_input
+    question = 'please enter your name:'
+    @name = ask_input(question)
     puts "#{player} is #{name}"
     puts ''
     @board = board
@@ -28,6 +28,23 @@ class Player
     end
   end
 
+  def find_choice_updated
+    board.display
+    question = 'please enter row and column e.g. A2'
+    begin
+      puts "#{name}'s turn."
+      input = ask_input(question)
+      return input if input == 'q'
+
+      input = process_input(input)
+    rescue StandardError => e
+      invalid_input
+      retry
+    else
+      input
+    end
+  end
+
   def process_input(input)
     row = format_input(input, board.class::ROWS)
     column = format_input(input, board.class::COLUMNS)
@@ -37,4 +54,4 @@ class Player
       invalid_input
     end
   end
-end
+erd

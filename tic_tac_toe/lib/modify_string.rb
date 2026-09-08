@@ -8,14 +8,9 @@ module ModifyString
     puts ''
   end
 
-  def ask_input
-    input = gets.chomp.strip
-    if input.empty?
-      invalid_input
-      ask_input
-    else
-      input
-    end
+  def ask_input(question)
+    puts question
+    gets.chomp.strip
   end
 
   def format_input(input, reference)
