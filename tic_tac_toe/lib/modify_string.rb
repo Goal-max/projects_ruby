@@ -10,17 +10,14 @@ module ModifyString
 
   def ask_input(question)
     puts question
-    gets.chomp.strip
+    gets.chomp.strip.upcase
   end
 
   def format_input(input, reference)
-    result = input.upcase.chars.intersection(reference)
-    if result == []
-      nil
-    else
-      result
-    end
+    input.chars.intersection(reference)[0]
   end
 
+  def already_occupied
+    puts 'Position taken. Please try again'
+  end
 end
-

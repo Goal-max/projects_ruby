@@ -54,13 +54,12 @@ class Board
                         diagonal_wins(ROWS, COLUMNS.reverse)]
   }
 
-  def choice(row, column, player)
-    if @board_info[row][column].nil?
-      @board_info[row][column] = player
-    else
-      puts 'Position taken. Please try again'
-      player.find_choice
-    end
+  def position_taken?(row, column)
+    @board_info[row][column].nil?
+  end
+
+  def assign_position(row, column, player)
+    @board_info[row][column] = player
   end
 
   def find_name(win_option)
@@ -128,7 +127,7 @@ class Board
   end
 
   def main_menu(menu_numbers)
-    welcome = %('', 'Tic Tac Toe', '', 'Select Choice:')
+    welcome = ['', 'Tic Tac Toe', '', 'Select Choice:']
     menu_choice = nil
     until menu_choice
       menu_choice = ask_input(welcome)

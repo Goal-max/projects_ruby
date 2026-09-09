@@ -31,27 +31,23 @@ class Player
   def find_choice_updated
     board.display
     question = 'please enter row and column e.g. A2'
-    begin
+    input = nil
+    until input
       puts "#{name}'s turn."
       input = ask_input(question)
-      return input if input == 'q'
+      return input if input == 'Q'
 
       input = process_input(input)
-    rescue StandardError => e
-      invalid_input
-      retry
-    else
-      input
     end
   end
 
   def process_input(input)
     row = format_input(input, board.class::ROWS)
     column = format_input(input, board.class::COLUMNS)
-    if row && column
-      board.choice(row[0], column[0], self)
+    if row && column && position_taken?(row, column)
+      board.assign_position(row, column, self)
     else
-      invalid_input
+      already_occupied
     end
   end
-erd
+end
