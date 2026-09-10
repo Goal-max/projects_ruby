@@ -44,7 +44,7 @@ class Player
   def process_input(input)
     row = format_input(input, board.class::ROWS)
     column = format_input(input, board.class::COLUMNS)
-    if row && column && position_taken?(row, column)
+    if row && column && board.position_taken?(row, column)
       board.assign_position(row, column, self)
     else
       already_occupied
