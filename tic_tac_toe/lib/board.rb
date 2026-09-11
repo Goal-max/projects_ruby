@@ -55,7 +55,7 @@ class Board
   }
 
   def position_taken?(row, column)
-    @board_info[row][column].nil?
+    @board_info[row][column] != nil
   end
 
   def assign_position(row, column, player)

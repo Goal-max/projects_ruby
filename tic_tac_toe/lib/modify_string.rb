@@ -10,11 +10,11 @@ module ModifyString
 
   def ask_input(question)
     puts question
-    gets.chomp.strip.upcase
+    gets.chomp.strip
   end
 
   def format_input(input, reference)
-    input.chars.intersection(reference)[0]
+    input.upcase.chars.intersection(reference)[0]
   end
 
   def already_occupied

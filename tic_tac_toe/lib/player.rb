@@ -21,7 +21,8 @@ class Player
     if input.nil?
       invalid_input
       find_choice
-    elsif input.upcase == 'q'
+    elsif input.upcase == 'Q'
+      input
     else
       result = process_input(input)
       find_choice if result.nil?
@@ -33,9 +34,8 @@ class Player
     question = 'please enter row and column e.g. A2'
     input = nil
     until input
-      puts "#{name}'s turn."
-      input = ask_input(question)
-      return input if input == 'Q'
+      input = ask_input("#{name}, #{question}").upcase
+      return input if input.upcase == 'Q'
 
       input = process_input(input)
     end
@@ -44,10 +44,12 @@ class Player
   def process_input(input)
     row = format_input(input, board.class::ROWS)
     column = format_input(input, board.class::COLUMNS)
-    if row && column && board.position_taken?(row, column)
+    if board.position_taken?(row, column)
+      already_occupied
+    elsif row && column
       board.assign_position(row, column, self)
     else
-      already_occupied
+      invalid_input
     end
   end
 end
