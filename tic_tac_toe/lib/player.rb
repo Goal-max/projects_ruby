@@ -7,7 +7,7 @@ class Player
 
   def initialize(player, board)
     question = 'please enter your name:'
-    @name = ask_input(question)
+    @name = ask_input("#{player}, #{question}")
     puts "#{player} is #{name}"
     puts ''
     @board = board
@@ -15,21 +15,6 @@ class Player
   end
 
   def find_choice
-    board.display
-    puts "#{name}, please enter row and column e.g. A2"
-    input = ask_input
-    if input.nil?
-      invalid_input
-      find_choice
-    elsif input.upcase == 'Q'
-      input
-    else
-      result = process_input(input)
-      find_choice if result.nil?
-    end
-  end
-
-  def find_choice_updated
     board.display
     question = 'please enter row and column e.g. A2'
     input = nil

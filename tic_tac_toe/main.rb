@@ -19,7 +19,7 @@ def play_round(board)
       winner = board.search_winner
       break if winner
 
-      player.find_choice_updated
+      player.find_choice
     end
   end
 end
