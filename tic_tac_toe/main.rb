@@ -30,7 +30,7 @@ until input == '2'
   board = Board.new
   board.display_menu(main_menu_items)
   input = board.main_menu(menu_numbers)[0]
-  next if input == '2'
+  break if input == '2'
 
   puts
   Player.new('Player one', board)

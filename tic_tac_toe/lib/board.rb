@@ -141,8 +141,6 @@ class Board
     if input == 'y'
       input = 'Q'
     else 
-      input = nil
-    end
-    input
+      input == nil
   end
 end
