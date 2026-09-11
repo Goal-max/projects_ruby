@@ -14,12 +14,13 @@ end
 
 def play_round(board)
   winner = nil
-  until winner
+  input = nil
+  until winner || input == 'Q'
     board.players.each do |player|
       winner = board.search_winner
-      break if winner
+      break if winner || input == 'Q'
 
-      player.find_choice
+      input = player.find_choice
     end
   end
 end
