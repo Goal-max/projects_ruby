@@ -17,10 +17,10 @@ def play_round(board)
   input = nil
   until winner || input == 'Q'
     board.players.each do |player|
+      input = player.find_choice
+      binding.b
       winner = board.search_winner
       break if winner || input == 'Q'
-
-      input = player.find_choice
     end
   end
 end

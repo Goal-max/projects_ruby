@@ -135,4 +135,14 @@ class Board
     end
     menu_choice
   end
+
+  def confirm_quit
+    input = ask_input('Are you sure you want to quit? Y/N')
+    if input == 'y'
+      input = 'Q'
+    else 
+      input = nil
+    end
+    input
+  end
 end
