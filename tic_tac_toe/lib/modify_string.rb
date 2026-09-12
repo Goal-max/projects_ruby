@@ -9,8 +9,12 @@ module ModifyString
   end
 
   def ask_input(question)
-    puts question
-    gets.chomp.strip
+    input = ''
+    while input == ''
+      puts question
+      input = gets.chomp.strip
+    end
+    input
   end
 
   def format_input(input, reference)

@@ -15,12 +15,11 @@ class Player
   end
 
   def find_choice
-    board.display
     question = 'please enter row and column e.g. A2. Q = quit'
     input = nil
     until input
+      board.display
       input = ask_input("#{name}, #{question}").upcase
-      input = board.confirm_quit if input == 'Q'
       return input if input == 'Q'
       next if input.nil?
 

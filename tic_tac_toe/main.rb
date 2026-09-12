@@ -18,9 +18,22 @@ def play_round(board)
   until winner || input == 'Q'
     board.players.each do |player|
       input = player.find_choice
-      binding.b
+      input = board.confirm_quit if input == 'Q'
       winner = board.search_winner
-      break if winner || input == 'Q'
+      if winner || input == 'Q'
+        board.display
+        break
+      end
+      nil_values = []
+      board.board_info.each_value do |column|
+        nil_values << column.values
+      end
+      next if nil_values.flatten.include?(nil)
+
+      board.display
+      input = 'Q'
+      puts 'Draw! Game over'
+      break
     end
   end
 end
@@ -30,7 +43,7 @@ until input == '2'
   board = Board.new
   board.display_menu(main_menu_items)
   input = board.main_menu(menu_numbers)[0]
-  break if input == '2'
+  next if input == '2'
 
   puts
   Player.new('Player one', board)

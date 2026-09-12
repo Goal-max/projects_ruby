@@ -142,5 +142,6 @@ class Board
       input = 'Q'
     else 
       input == nil
+    end
   end
 end
