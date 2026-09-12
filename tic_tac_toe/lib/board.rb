@@ -99,6 +99,7 @@ class Board
   def print_winnings
     WINNING
   end
+
   def display
     column_string = COLUMNS.join("\t").insert(0, " \t \t ")
     puts column_string
