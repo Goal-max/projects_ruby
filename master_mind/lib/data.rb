@@ -1,2 +1,3 @@
-module Data
+module Info
+  def array; end
 end
