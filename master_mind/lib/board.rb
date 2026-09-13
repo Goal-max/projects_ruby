@@ -5,8 +5,8 @@ class Board
   include Info
 
   def initialize
-    @players = []
+    @players = { 'code_maker' => Player.new('Code Maker', self),
+                 'code_breaker' => Player.new('Code Breaker', self) }
   end
-
 end
 
