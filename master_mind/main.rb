@@ -41,8 +41,16 @@ def ask_input(text)
   input
 end
 
-def check_input(reference, input)
-  reference.intersection(input)
+def role_screen(menu_items)
+  loop do
+    self.display_menu(menu_items)
+    player_role = self.ask_input('Please choose your role: ')
+    unless valid_input?(menu_items, player_role)
+      puts 'Invalid choice. Please try again'
+      redo
+    end
+    break
+  end
 end
 
 menu_input = ''
@@ -57,17 +65,15 @@ until menu_input == '2'
       puts 'Invalid choice. Please enter an integer.'
       redo
     end
-# redo unless menu_indices(main_menu).include?(menu_input)
     break if menu_input == '2'
 
+    role_screen(role_menu_items)
+
     board = Board.new
-    player_role = ask_input('Would you like to play the code maker or code'\
-                'breaker?')
     if player_role == 'code breaker'
     end
     code_maker = board.players['code_maker']
     12.times do
-        
-    end
+    end  
   end
 end
