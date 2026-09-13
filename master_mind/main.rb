@@ -2,14 +2,31 @@ require 'debug'
 require_relative 'lib/board'
 require_relative 'lib/player'
 
-main_menu = [
-  ['1', 'New game'],
-  ['2', 'Exit program']
-]
+def display_menu(menu_items)
+  menu_items.each_with_index do |item, index|
+    puts "#{index + 1}. #{item}"
+  end
+end
 
-main_menu_items = main_menu.map { |item| item[0] }
+def menu_indices(menu_items)
+  menu_items.each_index.map { |index| index + 1 }
+end
+
+def indexed_menu(items)
+  items.each_with_index.map do |item, index|
+    ["'#{index}'", item]
+  end
+end
+
+main_menu_items = %w(New\ Game Exit\ Program)
+
+role_menu_items = %w(Code\ Maker Code\ Breaker)
 
 codepeg_colours = %w(red orange green yellow blue violet)
+
+def valid_input?(menu_items, input)
+  menu_indices(menu_items).include?(input.to_i)
+end
 
 def print_text(text)
   puts "\n#{text}\n"
@@ -34,14 +51,20 @@ until menu_input == '2'
   menu_input = ''
   while menu_input == ''
     print_text('Welcome to Master Mind')
-    main_menu.each do |menu_item|
-      puts "#{menu_item[0]}. #{menu_item[1]}"
-    end
+    display_menu(main_menu_items)
     menu_input = ask_input('Please enter choice: ')
-    redo unless main_menu_items.include?(menu_input)
+    unless valid_input?(main_menu_items, menu_input)
+      puts 'Invalid choice. Please enter an integer.'
+      redo
+    end
+# redo unless menu_indices(main_menu).include?(menu_input)
     break if menu_input == '2'
 
     board = Board.new
+    player_role = ask_input('Would you like to play the code maker or code'\
+                'breaker?')
+    if player_role == 'code breaker'
+    end
     code_maker = board.players['code_maker']
     12.times do
         
