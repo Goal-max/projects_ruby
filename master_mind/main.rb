@@ -7,7 +7,9 @@ main_menu = [
   ['2', 'Exit program']
 ]
 
-main_menu_items = main_menu.map { |item| item[0]}
+main_menu_items = main_menu.map { |item| item[0] }
+
+codepeg_colours = %w(red orange green yellow blue violet)
 
 def print_text(text)
   puts "\n#{text}\n"
@@ -40,5 +42,9 @@ until menu_input == '2'
     break if menu_input == '2'
 
     board = Board.new
+    code_maker = board.players['code_maker']
+    12.times do
+        
+    end
   end
 end
