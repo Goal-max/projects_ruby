@@ -1,5 +1,5 @@
 require_relative 'board'
-require_relative 'data'
+require_relative 'methods'
 
 class Player
   attr_reader :name
@@ -8,9 +8,4 @@ class Player
     @name = ask_input("Please enter name for #{role}")
     @board = board
   end
-
-  def computer_code_maker
-    code = codepeg_colours.sample(4) 
-  end
-
 end

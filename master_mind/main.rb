@@ -1,6 +1,7 @@
 require 'debug'
 require_relative 'lib/board'
 require_relative 'lib/player'
+require_relative 'lib/methods'
 
 def display_menu(menu_items)
   menu_items.each_with_index do |item, index|
@@ -28,6 +29,10 @@ def valid_input?(menu_items, input)
   menu_indices(menu_items).include?(input.to_i)
 end
 
+def menu_item_at_index (index)
+  
+end
+
 def print_text(text)
   puts "\n#{text}\n"
 end
@@ -53,6 +58,11 @@ def role_screen(menu_items)
   end
 end
 
+def print_colours(codepeg_colours)
+  puts 'The colours are:'
+  puts codepeg_colours.join('\n')
+end
+
 menu_input = ''
 
 until menu_input == '2'
@@ -67,10 +77,15 @@ until menu_input == '2'
     end
     break if menu_input == '2'
 
-    role_screen(role_menu_items)
+    player_role = role_menu_items[role_screen(role_menu_items).to_i - 1]
+    puts "Player is #{player_role}"
 
     board = Board.new
-    if player_role == 'code breaker'
+    if player_role == 'Code Breaker'
+      board.generate_code(codepeg_colours)
+      puts 'The four colour secret code has been generated'
+      print_colours(codepeg_colours)
+      ask_input('Please guess the secret code')
     end
     code_maker = board.players['code_maker']
     12.times do

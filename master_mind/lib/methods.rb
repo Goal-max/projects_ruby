@@ -1,8 +1,4 @@
-module Info
-  def self.print_hi
-    print 'hi'
-  end
-
+module Methods
   def self.ask_input(text)
     print_hi
     input = ''
