@@ -4,8 +4,7 @@ require_relative 'methods'
 class Player
   attr_reader :name
 
-  def initialize(role, board)
-    @name = ask_input("Please enter name for #{role}")
+  def initialize(board)
     @board = board
   end
 end

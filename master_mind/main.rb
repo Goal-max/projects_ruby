@@ -59,16 +59,19 @@ def role_screen(menu_items)
   end
 end
 
-def print_colours(codepeg_colours)
-  print_text('The colours are:')
-  codepeg_colours
-end
-
-def colours_hash(codepeg_colours)
+def to_hash_with_letter_key(codepeg_colours)
   codepeg_colours.to_h { |colour| [colour[0], colour] }
 end
 
+def print_hash_menu(hash)
+  hash.each_pair do |key, value|
+    puts "#{key} = #{value}"
+  end
+end
+
 menu_input = ''
+
+colours_hash = to_hash_with_letter_key(codepeg_colours)
 
 until menu_input == '2'
   menu_input = ''
@@ -89,8 +92,10 @@ until menu_input == '2'
     if player_role == 'Code Breaker'
       board.generate_code(codepeg_colours)
       print_text('The four colour secret code has been generated')
-      print_colours(codepeg_colours)
-      guess = ask_input('Please guess the secret code')
+      print_text('Use below reference to enter the letter for each colour.')
+      print_hash_menu(colours_hash)
+      guess = ask_input('Please guess the secret code (use one letter for each'\
+      'colour e.g. rrbi)')
     end
     code_maker = board.players['code_maker']
     12.times do
