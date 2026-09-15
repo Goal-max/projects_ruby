@@ -29,8 +29,8 @@ def valid_input?(menu_items, input)
   menu_indices(menu_items).include?(input.to_i)
 end
 
-def menu_item_at_index (index)
-  
+def menu_item_by_number(menu_items, number)
+  menu_items[number.to_i - 1]
 end
 
 def print_text(text)
@@ -43,6 +43,7 @@ def ask_input(text)
     print_text(text)
     input = gets.chomp.strip
   end
+  puts ''
   input
 end
 
@@ -59,8 +60,8 @@ def role_screen(menu_items)
 end
 
 def print_colours(codepeg_colours)
-  puts 'The colours are:'
-  puts codepeg_colours.join('\n')
+  print_text('The colours are:')
+  puts codepeg_colours
 end
 
 menu_input = ''
@@ -77,13 +78,13 @@ until menu_input == '2'
     end
     break if menu_input == '2'
 
-    player_role = role_menu_items[role_screen(role_menu_items).to_i - 1]
-    puts "Player is #{player_role}"
+    role_menu_number = role_screen(role_menu_items)
+    player_role = menu_item_by_number(role_menu_items, role_menu_number)
 
     board = Board.new
     if player_role == 'Code Breaker'
       board.generate_code(codepeg_colours)
-      puts 'The four colour secret code has been generated'
+      print_text('The four colour secret code has been generated')
       print_colours(codepeg_colours)
       ask_input('Please guess the secret code')
     end
