@@ -61,7 +61,11 @@ end
 
 def print_colours(codepeg_colours)
   print_text('The colours are:')
-  puts codepeg_colours
+  codepeg_colours
+end
+
+def colours_hash(codepeg_colours)
+  codepeg_colours.to_h { |colour| [colour[0], colour] }
 end
 
 menu_input = ''
@@ -86,7 +90,7 @@ until menu_input == '2'
       board.generate_code(codepeg_colours)
       print_text('The four colour secret code has been generated')
       print_colours(codepeg_colours)
-      ask_input('Please guess the secret code')
+      guess = ask_input('Please guess the secret code')
     end
     code_maker = board.players['code_maker']
     12.times do
