@@ -69,6 +69,14 @@ def print_hash_menu(hash)
   end
 end
 
+def remove_whitespace(string)
+  string.downcase.gsub(/\s/, '')
+end
+
+def split_string(string)
+  string.split('')
+end
+
 menu_input = ''
 
 colours_hash = to_hash_with_letter_key(codepeg_colours)
@@ -94,10 +102,15 @@ until menu_input == '2'
       print_text('The four colour secret code has been generated')
       print_text('Use below reference to enter the letter for each colour.')
       print_hash_menu(colours_hash)
-      guess = ask_input('Please guess the secret code (use one letter for each'\
-      'colour e.g. rrbi)')
+      while true
+        guess = ask_input('Please guess the secret code (use one letter for each'\
+        'colour e.g. rrbi)')
+        guess_nowhitespace = remove_whitespace(guess)
+        colours_hash.fetch
+        letters_array = split_string(guess_nowhitespace)
+        redo
+      end
     end
-    code_maker = board.players['code_maker']
     12.times do
     end  
   end
