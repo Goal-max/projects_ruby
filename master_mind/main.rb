@@ -73,7 +73,7 @@ def remove_whitespace(string)
   string.downcase.gsub(/\s/, '')
 end
 
-def split_string(string)
+def string_to_letters(string)
   string.split('')
 end
 
@@ -106,9 +106,22 @@ until menu_input == '2'
         guess = ask_input('Please guess the secret code (use one letter for each'\
         'colour e.g. rrbi)')
         guess_nowhitespace = remove_whitespace(guess)
-        colours_hash.fetch
-        letters_array = split_string(guess_nowhitespace)
-        redo
+        colours_keys_reference = colours_hash.keys
+        input_letters = string_to_letters(guess_nowhitespace)
+        invalid_input = input_letters.difference(colours_keys_reference)
+        if invalid_input.length > 0
+          puts "Invalid input: #{invalid_input.join(', ')}."
+          redo
+        elsif input_letters.length == 4
+          input_colours = input_letters.map do |letter|
+            colours_hash[letter]
+          end
+          if board.guess_correct?(input_colours)
+            puts 'win'
+          else
+            puts 'incorrect guess'
+          end
+        end
       end
     end
     12.times do

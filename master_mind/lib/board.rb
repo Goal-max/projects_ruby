@@ -9,4 +9,12 @@ class Board
   def generate_code(colours)
     @code = Array.new(4) { colours.sample }
   end
+
+  def guess_correct?(guess)
+    guess.intersection(@code).length == 4
+  end
+
+  def check_input(guess)
+    keypegs = 
+  end
 end
