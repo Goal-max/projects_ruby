@@ -60,7 +60,7 @@ def role_screen(menu_items)
 end
 
 def to_hash_with_letter_key(codepeg_colours)
-  codepeg_colours.to_h { |colour| [colour[0], colour] }
+  codepeg_colours.to_h { |colour| [colour[0].to_sym, colour] }
 end
 
 def print_hash_menu(hash)
@@ -77,10 +77,14 @@ def string_to_letters(string)
   string.split('')
 end
 
+def array_letters_to_symbols(array)
+  array.map(&:to_sym)
+end
+
 menu_input = ''
 
 colours_hash = to_hash_with_letter_key(codepeg_colours)
-
+puts colours_hash
 until menu_input == '2'
   menu_input = ''
   while menu_input == ''
@@ -108,7 +112,8 @@ until menu_input == '2'
         guess_nowhitespace = remove_whitespace(guess)
         colours_keys_reference = colours_hash.keys
         input_letters = string_to_letters(guess_nowhitespace)
-        invalid_input = input_letters.difference(colours_keys_reference)
+        input_letters_as_symbols = array_letters_to_symbols(input_letters)
+        invalid_input = input_letters_as_symbols.difference(colours_keys_reference)
         if invalid_input.length > 0
           puts "Invalid input: #{invalid_input.join(', ')}."
           redo

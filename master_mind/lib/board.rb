@@ -4,17 +4,19 @@ require_relative 'methods'
 class Board
   include Methods
 
-  def initialize; end
-
-  def generate_code(colours)
-    @code = Array.new(4) { colours.sample }
+  def initialize
+    @guesses_and_feedback = []
+    @keypegs
   end
 
   def guess_correct?(guess)
-    guess.intersection(@code).length == 4
+    guess.intersection(@secret_code).length == 4
   end
 
   def check_input(guess)
-    keypegs = 
+  end
+
+  def generate_code(colours)
+    @secret_code = Array.new(4) { colours.sample }
   end
 end
