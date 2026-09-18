@@ -118,12 +118,13 @@ until menu_input == '2'
           puts "Invalid input: #{invalid_input.join(', ')}."
           redo
         elsif input_letters.length == 4
-          input_colours = input_letters.map do |letter|
+          input_colours = input_letters_as_symbols.map do |letter|
             colours_hash[letter]
           end
           if board.guess_correct?(input_colours)
             puts 'win'
           else
+            board.check_input(input_colours)
             puts 'incorrect guess'
           end
         end
