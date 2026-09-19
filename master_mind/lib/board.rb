@@ -36,10 +36,17 @@ class Board
         keypegs[:white] += 1
       end
     end
-    puts keypegs
+    @guesses_and_feedback << [guess, keypegs]
   end
 
   def generate_code(colours)
     @secret_code = Array.new(4) { colours.sample }
+  end
+
+  def list_guesses_and_feedback
+    puts 'All guesses and feedback:'
+    @guesses_and_feedback.each do |guess_and_feedback|
+      puts "Guess: #{guess_and_feedback[0]} \t Feedback: #{guess_and_feedback[1]}"
+    end
   end
 end

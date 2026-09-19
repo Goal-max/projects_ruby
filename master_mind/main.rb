@@ -106,7 +106,7 @@ until menu_input == '2'
       print_text('The four colour secret code has been generated')
       print_text('Use below reference to enter the letter for each colour.')
       print_hash_menu(colours_hash)
-      while true
+      12.times do
         guess = ask_input('Please guess the secret code (use one letter for each'\
         'colour e.g. rrbi)')
         guess_nowhitespace = remove_whitespace(guess)
@@ -125,12 +125,11 @@ until menu_input == '2'
             puts 'win'
           else
             board.check_input(input_colours)
-            puts 'incorrect guess'
+            print_text('incorrect guess')
+            board.list_guesses_and_feedback
           end
         end
       end
     end
-    12.times do
-    end  
   end
 end
