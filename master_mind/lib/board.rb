@@ -46,7 +46,7 @@ class Board
   def list_guesses_and_feedback
     puts 'All guesses and feedback:'
     @guesses_and_feedback.each do |guess_and_feedback|
-      puts "Guess: #{guess_and_feedback[0]} \t Feedback: #{guess_and_feedback[1]}"
+      puts "Guess: #{guess_and_feedback[0]} \t\t Feedback: #{guess_and_feedback[1]}"
     end
   end
 end

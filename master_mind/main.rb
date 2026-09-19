@@ -48,6 +48,7 @@ def ask_input(text)
 end
 
 def role_screen(menu_items)
+  player_role = ''
   loop do
     self.display_menu(menu_items)
     player_role = self.ask_input('Please choose your role: ')
@@ -57,6 +58,7 @@ def role_screen(menu_items)
     end
     break
   end
+  player_role
 end
 
 def to_hash_with_letter_key(codepeg_colours)
@@ -99,7 +101,6 @@ until menu_input == '2'
 
     role_menu_number = role_screen(role_menu_items)
     player_role = menu_item_by_number(role_menu_items, role_menu_number)
-
     board = Board.new
     if player_role == 'Code Breaker'
       board.generate_code(codepeg_colours)
@@ -130,6 +131,8 @@ until menu_input == '2'
           end
         end
       end
+    elsif player_role == 'Code Maker'
+      puts 'you are code maker'
     end
   end
 end
