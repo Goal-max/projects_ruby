@@ -10,7 +10,8 @@ class Board
   end
 
   def guess_correct?(guess)
-    guess.intersection(@secret_code).length == 4
+    binding.b
+    guess == @secret_code
   end
 
   def check_input(guess)
@@ -44,6 +45,7 @@ class Board
   end
 
   def list_guesses_and_feedback
+    puts "secret code: #{@secret_code}"
     puts 'All guesses and feedback:'
     @guesses_and_feedback.each do |guess_and_feedback|
       puts "Guess: #{guess_and_feedback[0]} \t\t Feedback: #{guess_and_feedback[1]}"
