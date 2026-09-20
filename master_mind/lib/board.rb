@@ -5,12 +5,14 @@ require 'debug'
 class Board
   include Methods
 
+  attr_accessor :secret_code
+
   def initialize
     @guesses_and_feedback = []
+    @secret_code = ''
   end
 
   def guess_correct?(guess)
-    binding.b
     guess == @secret_code
   end
 
@@ -45,10 +47,15 @@ class Board
   end
 
   def list_guesses_and_feedback
-    puts "secret code: #{@secret_code}"
     puts 'All guesses and feedback:'
     @guesses_and_feedback.each do |guess_and_feedback|
       puts "Guess: #{guess_and_feedback[0]} \t\t Feedback: #{guess_and_feedback[1]}"
     end
+  end
+
+  def check_guess
+    board.check_input(input_colours)
+    print_text('incorrect guess')
+    board.list_guesses_and_feedback
   end
 end

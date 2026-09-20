@@ -86,20 +86,21 @@ end
 menu_input = ''
 
 colours_hash = to_hash_with_letter_key(codepeg_colours)
-puts colours_hash
 until menu_input == '2'
   menu_input = ''
   while menu_input == ''
     print_text('Welcome to Master Mind')
     display_menu(main_menu_items)
-    menu_input = ask_input('Please enter choice: ')
+    #menu_input = ask_input('Please enter choice: ')
+    menu_input = 1
     unless valid_input?(main_menu_items, menu_input)
       puts 'Invalid choice. Please enter an integer.'
       redo
     end
     break if menu_input == '2'
 
-    role_menu_number = role_screen(role_menu_items)
+    #role_menu_number = role_screen(role_menu_items)
+    role_menu_number = 2
     player_role = menu_item_by_number(role_menu_items, role_menu_number)
     board = Board.new
     if player_role == 'Code Breaker'
@@ -108,31 +109,38 @@ until menu_input == '2'
       print_text('Use below reference to enter the letter for each colour.')
       print_hash_menu(colours_hash)
       12.times do
+def ask_player
+  loop
         guess = ask_input('Please guess the secret code (use one letter for each'\
         'colour e.g. rrbi)')
         guess_nowhitespace = remove_whitespace(guess)
         colours_keys_reference = colours_hash.keys
         input_letters = string_to_letters(guess_nowhitespace)
         input_letters_as_symbols = array_letters_to_symbols(input_letters)
-        invalid_input = input_letters_as_symbols.difference(colours_keys_reference)
-        if invalid_input.length > 0
-          puts "Invalid input: #{invalid_input.join(', ')}."
+        invalid_letters = input_letters_as_symbols.difference(colours_keys_reference)
+        if invalid_letters.length > 0
+          puts "Invalid input: #{invalid_letters.join(', ')}."
           redo
         elsif input_letters.length == 4
           input_colours = input_letters_as_symbols.map do |letter|
             colours_hash[letter]
           end
+end
           if board.guess_correct?(input_colours)
             puts 'win'
-          else
-            board.check_input(input_colours)
-            print_text('incorrect guess')
-            board.list_guesses_and_feedback
+            break
           end
+          board.check_guess(input_colours)
         end
       end
     elsif player_role == 'Code Maker'
-      puts 'you are code maker'
+      print_text('Use below reference to enter the letter for each colour.')
+      print_hash_menu(colours_hash)
+      board.secret_code = ask_input('Please enter four colour secret code using'\
+                      ' one letter for each colour e.g. rrbi')
+      puts "Secret code is: #{board.secret_code}"
+      guess
+      board.guess_correct(input_colours)
     end
   end
 end
