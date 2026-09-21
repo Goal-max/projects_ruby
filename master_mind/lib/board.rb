@@ -53,9 +53,9 @@ class Board
     end
   end
 
-  def check_guess
-    board.check_input(input_colours)
-    print_text('incorrect guess')
-    board.list_guesses_and_feedback
+  def check_guess(input)
+    self.check_input(input)
+    Methods.print_text('incorrect guess')
+    self.list_guesses_and_feedback
   end
 end
