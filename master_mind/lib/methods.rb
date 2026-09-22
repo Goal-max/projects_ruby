@@ -35,4 +35,10 @@ module Methods
       break input_colours
     end
   end
+
+  def self.ask_computer(guesses_and_feedback, codepeg_colours)
+    first_index_of_pair = [0, 2, 4]
+  
+
+  end
 end

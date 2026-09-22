@@ -5,7 +5,7 @@ require 'debug'
 class Board
   include Methods
 
-  attr_accessor :secret_code
+  attr_reader :guesses_and_feedback
 
   def initialize
     @guesses_and_feedback = []

@@ -90,25 +90,13 @@ until menu_input == '2'
     role_menu_number = 2
     player_role = menu_item_by_number(role_menu_items, role_menu_number)
     board = Board.new
-    if player_role == 'Code Breaker'
+    case player_role
+    when 'Code Breaker'
       board.generate_code(codepeg_colours)
       Methods.print_text('The four colour secret code has been generated')
       Methods.print_text('Use below reference to enter the letter for each colour.')
       print_hash_menu(colours_hash)
-      12.times do
-        case player_role
-          when 'Code Breaker'
-            input = Methods.ask_player(colours_hash)
-          when 'Code Maker'
-        end
-        if board.guess_correct?(input)
-          puts 'win'
-          break
-        else
-          board.check_guess(input)
-        end
-      end
-    elsif player_role == 'Code Maker'
+    when 'Code Maker'
       Methods.print_text('Use below reference to enter the letter for each colour.')
       print_hash_menu(colours_hash)
       board.secret_code = ask_input('Please enter four colour secret code using'\
@@ -116,6 +104,20 @@ until menu_input == '2'
       puts "Secret code is: #{board.secret_code}"
       #guess
       #board.guess_correct(input_colours)
+    end
+    12.times do
+      case player_role
+      when 'Code Breaker'
+        input = Methods.ask_player(colours_hash)
+      when 'Code Maker'
+        input = Methods.ask_computer(board.guesses_and_feedback, codepeg_colours)
+      end
+      if board.guess_correct?(input)
+        puts 'win'
+        break
+      else
+        board.check_guess(input)
+      end
     end
   end
 end
