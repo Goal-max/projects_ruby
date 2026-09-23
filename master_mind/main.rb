@@ -2,6 +2,7 @@ require 'debug'
 require_relative 'lib/board'
 require_relative 'lib/player'
 require_relative 'lib/methods'
+require_relative 'lib/computer_code_breaker'
 
 def display_menu(menu_items)
   menu_items.each_with_index do |item, index|
@@ -102,8 +103,7 @@ until menu_input == '2'
       board.secret_code = ask_input('Please enter four colour secret code using'\
                       ' one letter for each colour e.g. rrbi')
       puts "Secret code is: #{board.secret_code}"
-      #guess
-      #board.guess_correct(input_colours)
+      computer = Computer.new(board, codepeg_colours)
     end
     12.times do
       case player_role
