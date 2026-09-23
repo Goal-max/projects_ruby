@@ -6,6 +6,7 @@ class Board
   include Methods
 
   attr_reader :guesses_and_feedback
+  attr_accessor :secret_code
 
   def initialize
     @guesses_and_feedback = []

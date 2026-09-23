@@ -88,7 +88,7 @@ until menu_input == '2'
     break if menu_input == '2'
 
     #role_menu_number = role_screen(role_menu_items)
-    role_menu_number = 2
+    role_menu_number = 1
     player_role = menu_item_by_number(role_menu_items, role_menu_number)
     board = Board.new
     case player_role
@@ -100,10 +100,11 @@ until menu_input == '2'
     when 'Code Maker'
       Methods.print_text('Use below reference to enter the letter for each colour.')
       print_hash_menu(colours_hash)
-      board.secret_code = ask_input('Please enter four colour secret code using'\
+      board.secret_code = Methods.ask_input('Please enter four colour secret code using'\
                       ' one letter for each colour e.g. rrbi')
       puts "Secret code is: #{board.secret_code}"
       computer = Computer.new(board, codepeg_colours)
+      binding.b
     end
     12.times do
       case player_role
