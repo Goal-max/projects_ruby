@@ -35,6 +35,10 @@ class Computer
 
 # create below only if above >= 1 red/white. Unshift onto array patterns list
   def create_second_pattern(first_colour)
-    [first_colour, first_colour, first_colour, first_colour]
+    colour_patterns << [first_colour, first_colour, first_colour, first_colour]
+  end
+
+  def take_pattern
+    colour_patterns.shift
   end
 end

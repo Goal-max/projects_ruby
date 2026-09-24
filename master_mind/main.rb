@@ -100,24 +100,30 @@ until menu_input == '2'
     when 'Code Maker'
       Methods.print_text('Use below reference to enter the letter for each colour.')
       print_hash_menu(colours_hash)
-      board.secret_code = Methods.ask_input('Please enter four colour secret code using'\
-                      ' one letter for each colour e.g. rrbi')
+      text =  'Please enter four colour secret code using one letter for each'\
+            'colour e.g. rrbi'
+      board.secret_code = Methods.ask_player(colours_hash, text)
       puts "Secret code is: #{board.secret_code}"
       computer = Computer.new(board, codepeg_colours)
-      binding.b
     end
-    12.times do
+    12.times do |count|
       case player_role
       when 'Code Breaker'
-        input = Methods.ask_player(colours_hash)
+        text = 'Please guess the secret code (use one letter for each'\
+              'colour e.g. rrbi)'
+        input = Methods.ask_player(colours_hash, text)
       when 'Code Maker'
-        input = Methods.ask_computer(board.guesses_and_feedback, codepeg_colours)
+        input = computer.take_pattern
       end
       if board.guess_correct?(input)
         puts 'win'
         break
       else
         board.check_guess(input)
+      end
+      if player_role == 'Code Maker'
+        feedback = board.guesses_and_feedback[count][1]
+        binding.b
       end
     end
   end

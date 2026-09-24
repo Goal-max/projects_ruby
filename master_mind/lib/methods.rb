@@ -13,16 +13,15 @@ module Methods
     input
   end
 
-  def self.ask_player(colours_hash)
-    loop do 
-      guess = self.ask_input('Please guess the secret code (use one letter for each'\
-      'colour e.g. rrbi)')
+  def self.ask_player(colours_hash, text)
+    loop do
+      guess = self.ask_input(text)
       guess_nowhitespace = self.remove_whitespace(guess)
-      colours_keys_reference = colours_hash.keys
       input_letters = self.string_to_letters(guess_nowhitespace)
       input_letters_as_symbols = self.array_letters_to_symbols(input_letters)
+      colours_keys_reference = colours_hash.keys
       invalid_letters = input_letters_as_symbols.difference(colours_keys_reference)
-      if invalid_letters.length > 0
+      if !invalid_letters.empty?
         puts "Invalid input: #{invalid_letters.join(', ')}."
         redo
       elsif input_letters.length != 4
@@ -34,11 +33,5 @@ module Methods
       end
       break input_colours
     end
-  end
-
-  def self.ask_computer(guesses_and_feedback, codepeg_colours)
-    first_index_of_pair = [0, 2, 4]
-  
-
   end
 end
