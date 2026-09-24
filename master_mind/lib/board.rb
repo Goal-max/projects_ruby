@@ -21,7 +21,6 @@ class Board
     keypegs = { red: 0, white: 0 }
     secret_code_no_matches = []
     guess_no_matches = []
-    binding.b
     @secret_code.each_index do |index|
       if @secret_code[index] != guess[index]
         secret_code_no_matches << @secret_code[index]

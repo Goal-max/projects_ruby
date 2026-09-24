@@ -123,6 +123,12 @@ until menu_input == '2'
       end
       if player_role == 'Code Maker'
         feedback = board.guesses_and_feedback[count][1]
+        total_red_whites = feedback.each_value.inject { |sum, value| sum + value }
+        if total_red_whites == 0
+          computer.incorrect_colours << computer.remove_pattern.uniq!
+        elsif total_red_whites == 1
+          computer.create_second_pattern
+        end
         binding.b
       end
     end

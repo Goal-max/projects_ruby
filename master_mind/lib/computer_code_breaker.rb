@@ -1,12 +1,13 @@
 class Computer
   attr_reader :colours, :colours_indices, :colours_paired
-  attr_accessor :colour_patterns
+  attr_accessor :colour_patterns, :incorrect_colours
 
   def initialize(board, colours)
     @board = board
     @colours = colours
     @colours_paired = divide_into_pairs
     @colour_patterns = base_pattern
+    @incorrect_colours = []
   end
 
   def divide_into_pairs
@@ -39,6 +40,10 @@ class Computer
   end
 
   def take_pattern
+    colour_patterns[0]
+  end
+  
+  def remove_pattern
     colour_patterns.shift
   end
 end
