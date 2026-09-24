@@ -1,46 +1,40 @@
 class Computer
-  attr_reader :colours
+  attr_reader :colours, :colours_indices, :colours_paired
   attr_accessor :colour_patterns
 
   def initialize(board, colours)
     @board = board
     @colours = colours
-    @colour_patterns
+    @colours_paired = divide_into_pairs
+    @colour_patterns = base_pattern
   end
 
-=begin
-  def create_colour_pairs(colours)
-    colours_copy = colours
-    colour_pairs = []
-    colour_pairs << colours_copy.shift(2) until colours_copy.empty?
-    colour_pairs
-  end
-=end
-
-  colours_indices = colours.each_index.map do |index|
-    index
-  end
-  until colours_indices.empty?
-    index_pair = colours_indices.shift(2)
-    first_index = index_pair[0]
-    second_index = index_pair[1]
-    create_pattern(first_index, second_index)
+  def divide_into_pairs
+    pair = []
+    i = 0
+    while i < colours.length
+      pair << [colours[i], colours[i + 1]]
+      i += 2
+    end
+    pair
   end
 
-  def create_first_pattern(first_index, second_index)
-    [first_index, first_index, second_index, second_index]
+  def base_pattern
+    pattern_list = []
+    colours_paired.each do |colour_pair|
+      first_colour = colour_pair[0]
+      second_colour = colour_pair[1]
+      pattern_list << create_first_pattern(first_colour, second_colour)
+    end
+    pattern_list
+  end
+
+  def create_first_pattern(first_colour, second_colour)
+    [first_colour, first_colour, second_colour, second_colour]
   end
 
 # create below only if above >= 1 red/white. Unshift onto array patterns list
-  def create_second_pattern(first_index)
-    [first_index, first_index, first_index, first_index]
-  end
-
-  def create_guess(index_pattern)
-    guess = []
-    index_pattern.each do |element|
-      guess << colours[element]
-    end
-    guess
+  def create_second_pattern(first_colour)
+    [first_colour, first_colour, first_colour, first_colour]
   end
 end
