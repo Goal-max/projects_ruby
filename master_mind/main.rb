@@ -100,7 +100,7 @@ until menu_input == '2'
     when 'Code Maker'
       Methods.print_text('Use below reference to enter the letter for each colour.')
       print_hash_menu(colours_hash)
-      text =  'Please enter four colour secret code using one letter for each'\
+      text = 'Please enter four colour secret code using one letter for each'\
             'colour e.g. rrbi'
       board.secret_code = Methods.ask_player(colours_hash, text)
       puts "Secret code is: #{board.secret_code}"
@@ -121,16 +121,25 @@ until menu_input == '2'
       else
         board.check_guess(input)
       end
-      if player_role == 'Code Maker'
-        feedback = board.guesses_and_feedback[count][1]
-        total_red_whites = feedback.each_value.inject { |sum, value| sum + value }
+      next if player_role == 'Code Breaker'
+      feedback = board.guesses_and_feedback[count][1]
+      previous_feedback = board.guesses_and_feedback[count - 1][1]
+      total_red_whites = feedback.each_value.inject { |sum, value| sum + value }
+      if computer.pattern_group2.empty?
         if total_red_whites == 0
           computer.incorrect_colours << computer.remove_pattern.uniq!
-        elsif total_red_whites == 1
-          computer.create_second_pattern
+        elsif total_red_whites > 0 
+          computer.create_second_pattern(computer.colour_patterns[0][1])
         end
-        binding.b
+      else 
+        case previous_feedback[:red]
+        when 1
+          if feedback[:red] == 0 && feedback[:white] == 1
+        when 2
+        when 3
+        end
       end
+      binding.b
     end
   end
 end

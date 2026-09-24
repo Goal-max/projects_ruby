@@ -1,12 +1,13 @@
 class Computer
   attr_reader :colours, :colours_indices, :colours_paired
-  attr_accessor :colour_patterns, :incorrect_colours
+  attr_accessor :colour_patterns, :incorrect_colours, :pattern_group2
 
   def initialize(board, colours)
     @board = board
     @colours = colours
     @colours_paired = divide_into_pairs
     @colour_patterns = base_pattern
+    @pattern_group2 = []
     @incorrect_colours = []
   end
 
@@ -36,13 +37,17 @@ class Computer
 
 # create below only if above >= 1 red/white. Unshift onto array patterns list
   def create_second_pattern(first_colour)
-    colour_patterns << [first_colour, first_colour, first_colour, first_colour]
+    pattern_group2 << [first_colour, first_colour, first_colour, first_colour]
   end
 
   def take_pattern
-    colour_patterns[0]
+    if pattern_group2.empty?
+      colour_patterns[0]
+    else
+      pattern_group2[0]
+    end
   end
-  
+
   def remove_pattern
     colour_patterns.shift
   end
