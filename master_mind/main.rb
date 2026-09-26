@@ -131,7 +131,6 @@ until menu_input == '2'
           computer.incorrect_colours << computer.remove_pattern.uniq!
         elsif total_red_whites > 0 
           computer.create_second_pattern(computer.colours_paired.shift)
-      binding.b
         end
 =begin
       else 

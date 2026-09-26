@@ -44,7 +44,17 @@ class Computer
   def create_second_pattern(colour_pair)
     first_colour = colour_pair[0]
     second_colour = colour_pair[1]
+    patterns = base_patterns[0].each_index.map do |index|
+      base_patterns[0].each_with_index.map do |element, second_index|
+        if index == second_index
+          element == first_colour ? second_colour : first_colour
+        else
+          element
+        end 
+      end
+    end
     binding.b
+    patterns
   end
 
   def take_pattern
