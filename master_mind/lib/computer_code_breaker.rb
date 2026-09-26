@@ -40,7 +40,6 @@ class Computer
     [first_colour, first_colour, second_colour, second_colour]
   end
 
-# create below only if above >= 1 red/white. Unshift onto array patterns list
   def create_second_pattern(colour_pair)
     first_colour = colour_pair[0]
     second_colour = colour_pair[1]
@@ -50,11 +49,10 @@ class Computer
           element == first_colour ? second_colour : first_colour
         else
           element
-        end 
+        end
       end
     end
-    binding.b
-    patterns
+    pattern_group2 << patterns
   end
 
   def take_pattern

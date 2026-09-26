@@ -128,11 +128,12 @@ until menu_input == '2'
         computer.base_pattern_feedback = board.guesses_and_feedback[count][1]
         total_red_whites = computer.base_pattern_feedback.each_value.inject { |sum, value| sum + value }
         if total_red_whites == 0
-          computer.incorrect_colours << computer.remove_pattern.uniq!
+          computer.incorrect_colours << computer.base_patterns[0].uniq!
         elsif total_red_whites > 0 
           computer.create_second_pattern(computer.colours_paired.shift)
+        binding.b
         end
-=begin
+        computer.remove_pattern
       else 
         case previous_feedback[:red]
         when 1
@@ -140,7 +141,6 @@ until menu_input == '2'
         when 2
         when 3
         end
-=end
       end
     end
   end
