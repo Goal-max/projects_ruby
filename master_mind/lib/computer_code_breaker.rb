@@ -48,6 +48,8 @@ class Computer
     first_colour = colour_pair[0]
     second_colour = colour_pair[1]
     self.second_patterns = base_patterns[0].each_index.map do |index|
+      next nil unless secret_code_guess[index].nil?
+
       base_patterns[0].each_with_index.map do |element, second_index|
         if index == second_index
           element == first_colour ? second_colour : first_colour
@@ -56,6 +58,7 @@ class Computer
         end
       end
     end
+    second_patterns.delete(nil)
   end
 
   def create_secret_code_guess_array
