@@ -123,24 +123,39 @@ until menu_input == '2'
       end
       next if player_role == 'Code Breaker'
 
-      last_feedback = board.guesses_and_feedback[count - 1][1]
-      if computer.pattern_group2.empty?
-        computer.base_pattern_feedback = board.guesses_and_feedback[count][1]
-        total_red_whites = computer.base_pattern_feedback.each_value.inject { |sum, value| sum + value }
+      last_feedback = board.guesses_and_feedback[count][1]
+      if computer.second_patterns.empty?
+        computer.base_pattern_feedback = last_feedback
+        total_red_whites = computer.base_pattern_feedback[:total_red_white]
         if total_red_whites == 0
           computer.incorrect_colours << computer.base_patterns[0].uniq!
         elsif total_red_whites > 0 
           computer.create_second_pattern(computer.colours_paired.shift)
-        binding.b
         end
-        computer.remove_pattern
-      else 
-        case previous_feedback[:red]
+      else
+        base_pattern_reds = computer.base_pattern_feedback[:red]
+        last_feedback_reds = last_feedback[:red]
+        secretcode_position_index = 4 - computer.second_patterns.length
+        feedback_difference = last_feedback_reds - base_pattern_reds
+        case feedback_difference
+        when -1
+          computer.secret_code_guess[secretcode_position_index] =
+            computer.base_patterns[0][secretcode_position_index]
         when 1
-          if feedback[:red] == 0 && feedback[:white] == 1
-        when 2
-        when 3
+          computer.secret_code_guess[secretcode_position_index] =
+            computer.second_patterns[0][secretcode_position_index]
         end
+        if feedback_difference != 0
+          computer.second_pattern_total_reds_found += 1
+        end
+        if base_pattern_reds == 1 &&
+          computer.second_pattern_total_reds_found == 1
+          computer.second_pattern_total_reds_found = 0
+          computer.base_patterns.shift
+          computer.second_patterns = []
+        end
+        computer.base_patterns.shift if computer.second_patterns.length == 1
+        computer.second_patterns.shift
       end
     end
   end

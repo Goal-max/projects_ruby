@@ -4,7 +4,9 @@ class Computer
                 :base_patterns,
                 :base_pattern_feedback,
                 :incorrect_colours,
-                :pattern_group2
+                :second_patterns,
+                :secret_code_guess,
+                :second_pattern_total_reds_found
 
   def initialize(board, colours)
     @board = board
@@ -12,8 +14,10 @@ class Computer
     @colours_paired = divide_into_pairs
     @base_patterns = create_base_pattern
     @base_pattern_feedback = {}
-    @pattern_group2 = []
+    @second_patterns = []
     @incorrect_colours = []
+    @secret_code_guess = create_secret_code_guess_array
+    @second_pattern_total_reds_found = 0
   end
 
   def divide_into_pairs
@@ -43,7 +47,7 @@ class Computer
   def create_second_pattern(colour_pair)
     first_colour = colour_pair[0]
     second_colour = colour_pair[1]
-    patterns = base_patterns[0].each_index.map do |index|
+    self.second_patterns = base_patterns[0].each_index.map do |index|
       base_patterns[0].each_with_index.map do |element, second_index|
         if index == second_index
           element == first_colour ? second_colour : first_colour
@@ -52,18 +56,20 @@ class Computer
         end
       end
     end
-    pattern_group2 << patterns
+  end
+
+  def create_secret_code_guess_array
+    Array.new(4) { nil }
   end
 
   def take_pattern
-    if pattern_group2.empty?
+    binding.b
+    if secret_code_guess.none?(nil)
+      secret_code_guess
+    elsif second_patterns.empty?
       base_patterns[0]
     else
-      pattern_group2[0]
+      second_patterns[0]
     end
-  end
-
-  def remove_pattern
-    base_patterns.shift
   end
 end

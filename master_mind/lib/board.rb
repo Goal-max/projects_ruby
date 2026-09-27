@@ -40,6 +40,7 @@ class Board
         keypegs[:white] += 1
       end
     end
+    keypegs[:total_red_white] = keypegs[:red] + keypegs[:white]
     @guesses_and_feedback << [guess, keypegs]
   end
 
@@ -50,7 +51,9 @@ class Board
   def list_guesses_and_feedback
     puts 'All guesses and feedback:'
     @guesses_and_feedback.each do |guess_and_feedback|
-      puts "Guess: #{guess_and_feedback[0]} \t\t Feedback: #{guess_and_feedback[1]}"
+      puts "Guess: #{guess_and_feedback[0]} \t\t "\
+            "Feedback: {red: #{guess_and_feedback[1][:red]}, "\
+            "white: #{guess_and_feedback[1][:white]}}"
     end
   end
 
