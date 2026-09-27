@@ -116,6 +116,7 @@ until menu_input == '2'
         input = computer.take_pattern
       end
       if board.guess_correct?(input)
+        puts "#{input}"
         puts 'win'
         break
       else
@@ -128,14 +129,22 @@ until menu_input == '2'
         computer.base_pattern_feedback = last_feedback
         total_red_whites = computer.base_pattern_feedback[:total_red_white]
         if total_red_whites == 0
-          computer.incorrect_colours << computer.base_patterns[0].uniq!
+          computer.base_patterns.shift
+          # computer.incorrect_colours << computer.base_patterns[0].uniq!
         elsif total_red_whites > 0 
-          computer.create_second_pattern(computer.colours_paired.shift)
+          computer.create_second_pattern(computer.colours_paired[0])
         end
+        computer.colours_paired.shift
       else
+        secretcode_position_index = 4 - computer.second_patterns.length
+        unless computer.secret_code_guess[secretcode_position_index].nil?
+          computer.second_patterns.shift
+          next
+        end
+        base_pattern_total_red_white =
+          computer.base_pattern_feedback[:total_red_white]
         base_pattern_reds = computer.base_pattern_feedback[:red]
         last_feedback_reds = last_feedback[:red]
-        secretcode_position_index = 4 - computer.second_patterns.length
         feedback_difference = last_feedback_reds - base_pattern_reds
         case feedback_difference
         when -1
@@ -148,13 +157,17 @@ until menu_input == '2'
         if feedback_difference != 0
           computer.second_pattern_total_reds_found += 1
         end
-        if base_pattern_reds == 1 &&
+        if base_pattern_total_red_white == 1 &&
           computer.second_pattern_total_reds_found == 1
           computer.second_pattern_total_reds_found = 0
           computer.base_patterns.shift
           computer.second_patterns = []
+          next
         end
-        computer.base_patterns.shift if computer.second_patterns.length == 1
+        if computer.second_patterns.length == 1
+          computer.base_patterns.shift
+          computer.second_pattern_total_reds_found = 0
+        end
         computer.second_patterns.shift
       end
     end

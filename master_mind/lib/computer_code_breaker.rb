@@ -63,7 +63,6 @@ class Computer
   end
 
   def take_pattern
-    binding.b
     if secret_code_guess.none?(nil)
       secret_code_guess
     elsif second_patterns.empty?
