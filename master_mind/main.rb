@@ -108,6 +108,7 @@ until menu_input == '2'
     end
     12.times do |count|
       case player_role
+# find player input
       when 'Code Breaker'
         text = 'Please guess the secret code (use one letter for each'\
               'colour e.g. rrbi)'
@@ -123,8 +124,9 @@ until menu_input == '2'
         board.check_guess(input)
       end
       next if player_role == 'Code Breaker'
-
+# computer calculates next guess
       last_feedback = board.guesses_and_feedback[count][1]
+#computer creates second patterns
       if computer.second_patterns.empty?
         computer.base_pattern_feedback = last_feedback
         total_red_whites = computer.base_pattern_feedback[:total_red_white]
@@ -134,6 +136,7 @@ until menu_input == '2'
           computer.create_second_pattern(computer.colours_paired[0])
         end
         computer.colours_paired.shift
+#computer checks for change in feedback reds
       else
         secretcode_position_index = computer.second_patterns[0][0]
         unless computer.secret_code_guess[secretcode_position_index].nil?
@@ -145,6 +148,7 @@ until menu_input == '2'
         base_pattern_reds = computer.base_pattern_feedback[:red]
         last_feedback_reds = last_feedback[:red]
         feedback_difference = last_feedback_reds - base_pattern_reds
+#store colour worked out
         case feedback_difference
         when -1
           computer.secret_code_guess[secretcode_position_index] =
@@ -153,9 +157,11 @@ until menu_input == '2'
           computer.secret_code_guess[secretcode_position_index] =
             computer.second_patterns[0][1][secretcode_position_index]
         end
+#update total reds found
         if feedback_difference != 0
           computer.second_pattern_total_reds_found += 1
         end
+#remove last pattern guessed
         if base_pattern_total_red_white == 1 &&
           computer.second_pattern_total_reds_found == 1
           computer.second_pattern_total_reds_found = 0
