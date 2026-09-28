@@ -3,19 +3,17 @@ class Computer
   attr_accessor :colours_paired,
                 :base_patterns,
                 :base_pattern_feedback,
-                :incorrect_colours,
                 :second_patterns,
                 :secret_code_guess,
                 :second_pattern_total_reds_found
 
   def initialize(board, colours)
     @board = board
-    @colours = colours
+    @colours = colours.shuffle
     @colours_paired = divide_into_pairs
     @base_patterns = create_base_pattern
     @base_pattern_feedback = {}
     @second_patterns = []
-    @incorrect_colours = []
     @secret_code_guess = create_secret_code_guess_array
     @second_pattern_total_reds_found = 0
   end

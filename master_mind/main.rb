@@ -114,9 +114,11 @@ until menu_input == '2'
         input = Methods.ask_player(colours_hash, text)
       when 'Code Maker'
         input = computer.take_pattern
+        puts " computer secret code: #{computer.secret_code_guess}"
+        puts "computer input: #{input}"
       end
       if board.guess_correct?(input)
-        puts "#{input}"
+        puts "computer input is #{input}"
         puts 'win'
         break
       else
@@ -130,13 +132,12 @@ until menu_input == '2'
         total_red_whites = computer.base_pattern_feedback[:total_red_white]
         if total_red_whites == 0
           computer.base_patterns.shift
-          # computer.incorrect_colours << computer.base_patterns[0].uniq!
         elsif total_red_whites > 0 
           computer.create_second_pattern(computer.colours_paired[0])
         end
         computer.colours_paired.shift
       else
-        secretcode_position_index = 4 - computer.second_patterns.length
+        #secretcode_position_index = 4 - computer.second_patterns.length
         unless computer.secret_code_guess[secretcode_position_index].nil?
           computer.second_patterns.shift
           next
@@ -158,6 +159,15 @@ until menu_input == '2'
           computer.second_pattern_total_reds_found += 1
         end
         if base_pattern_total_red_white == 1 &&
+          computer.second_pattern_total_reds_found == 1
+          computer.second_pattern_total_reds_found = 0
+          computer.base_patterns.shift
+          computer.second_patterns = []
+          next
+        end
+        # below is repeat of above code 
+        if computer.base_pattern_feedback[:white] == 1 && 
+          base_pattern_total_red_white == 1 && 
           computer.second_pattern_total_reds_found == 1
           computer.second_pattern_total_reds_found = 0
           computer.base_patterns.shift
