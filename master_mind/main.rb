@@ -38,7 +38,7 @@ def role_screen(menu_items)
   player_role = ''
   loop do
     self.display_menu(menu_items)
-    player_role = self.ask_input('Please choose your role: ')
+    player_role = Methods.ask_input('Please choose your role: ')
     unless valid_input?(menu_items, player_role)
       puts 'Invalid choice. Please try again'
       redo
@@ -79,16 +79,16 @@ until menu_input == '2'
   while menu_input == ''
     Methods.print_text('Welcome to Master Mind')
     display_menu(main_menu_items)
-    #menu_input = ask_input('Please enter choice: ')
-    menu_input = 1
+    #menu_input = 1
+    menu_input = Methods.ask_input('Please enter choice: ')
     unless valid_input?(main_menu_items, menu_input)
       puts 'Invalid choice. Please enter an integer.'
       redo
     end
     break if menu_input == '2'
 
-    #role_menu_number = role_screen(role_menu_items)
-    role_menu_number = 1
+    #role_menu_number = 1
+    role_menu_number = role_screen(role_menu_items)
     player_role = menu_item_by_number(role_menu_items, role_menu_number)
     board = Board.new
     case player_role
@@ -114,12 +114,10 @@ until menu_input == '2'
         input = Methods.ask_player(colours_hash, text)
       when 'Code Maker'
         input = computer.take_pattern
-        puts " computer secret code: #{computer.secret_code_guess}"
-        puts "computer input: #{input}"
       end
       if board.guess_correct?(input)
-        puts "computer input is #{input}"
         puts 'win'
+        puts "secret code is #{input}"
         break
       else
         board.check_guess(input)
