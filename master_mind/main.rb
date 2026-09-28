@@ -72,20 +72,19 @@ end
 
 colours_hash = to_hash_with_letter_key(codepeg_colours)
 
-
-menu_input = ''
-until menu_input == '2'
+loop do 
   menu_input = ''
-  while menu_input == ''
+  loop do
     Methods.print_text('Welcome to Master Mind')
+# find menu_choice
     display_menu(main_menu_items)
-    #menu_input = 1
     menu_input = Methods.ask_input('Please enter choice: ')
-    unless valid_input?(main_menu_items, menu_input)
-      puts 'Invalid choice. Please enter an integer.'
-      redo
-    end
-    break if menu_input == '2'
+    break if valid_input?(main_menu_items, menu_input)
+
+    puts 'Invalid choice. Please enter an integer.'
+    redo
+  end
+  break if menu_input == '2'
 
     #role_menu_number = 1
     role_menu_number = role_screen(role_menu_items)
@@ -161,7 +160,7 @@ until menu_input == '2'
         if feedback_difference != 0
           computer.second_pattern_total_reds_found += 1
         end
-#remove last pattern guessed
+# reset pattern if found 1 red/white
         if base_pattern_total_red_white == 1 &&
           computer.second_pattern_total_reds_found == 1
           computer.second_pattern_total_reds_found = 0
@@ -169,12 +168,13 @@ until menu_input == '2'
           computer.second_patterns = []
           next
         end
+#reset if last second pattern guessed
         if computer.second_patterns.length == 1
           computer.base_patterns.shift
           computer.second_pattern_total_reds_found = 0
         end
         computer.second_patterns.shift
       end
+    menu_input = 1
     end
-  end
 end
