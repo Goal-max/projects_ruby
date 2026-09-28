@@ -48,13 +48,14 @@ class Computer
     self.second_patterns = base_patterns[0].each_index.map do |index|
       next nil unless secret_code_guess[index].nil?
 
-      base_patterns[0].each_with_index.map do |element, second_index|
+      pattern = base_patterns[0].each_with_index.map do |element, second_index|
         if index == second_index
           element == first_colour ? second_colour : first_colour
         else
           element
         end
       end
+      [index, pattern]
     end
     second_patterns.delete(nil)
   end
@@ -69,7 +70,7 @@ class Computer
     elsif second_patterns.empty?
       base_patterns[0]
     else
-      second_patterns[0]
+      second_patterns[0][1]
     end
   end
 end

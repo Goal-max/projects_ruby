@@ -137,7 +137,7 @@ until menu_input == '2'
         end
         computer.colours_paired.shift
       else
-        #secretcode_position_index = 4 - computer.second_patterns.length
+        secretcode_position_index = computer.second_patterns[0][0]
         unless computer.secret_code_guess[secretcode_position_index].nil?
           computer.second_patterns.shift
           next
@@ -153,7 +153,7 @@ until menu_input == '2'
             computer.base_patterns[0][secretcode_position_index]
         when 1
           computer.secret_code_guess[secretcode_position_index] =
-            computer.second_patterns[0][secretcode_position_index]
+            computer.second_patterns[0][1][secretcode_position_index]
         end
         if feedback_difference != 0
           computer.second_pattern_total_reds_found += 1
