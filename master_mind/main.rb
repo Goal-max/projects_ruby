@@ -163,15 +163,6 @@ until menu_input == '2'
           computer.second_patterns = []
           next
         end
-        # below is repeat of above code 
-        if computer.base_pattern_feedback[:white] == 1 && 
-          base_pattern_total_red_white == 1 && 
-          computer.second_pattern_total_reds_found == 1
-          computer.second_pattern_total_reds_found = 0
-          computer.base_patterns.shift
-          computer.second_patterns = []
-          next
-        end
         if computer.second_patterns.length == 1
           computer.base_patterns.shift
           computer.second_pattern_total_reds_found = 0
