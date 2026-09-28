@@ -4,11 +4,8 @@ module Methods
   end
 
   def self.ask_input(text)
-    input = ''
-    while input == ''
-      print_text(text)
-      input = gets.chomp.strip
-    end
+    print_text(text)
+    input = gets.chomp.strip
     puts ''
     input
   end

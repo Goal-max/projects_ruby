@@ -34,18 +34,19 @@ def menu_item_by_number(menu_items, number)
   menu_items[number.to_i - 1]
 end
 
-def role_screen(menu_items)
-  player_role = ''
+def menu_screen(menu_items, question)
   loop do
     self.display_menu(menu_items)
-    player_role = Methods.ask_input('Please choose your role: ')
-    unless valid_input?(menu_items, player_role)
-      puts 'Invalid choice. Please try again'
-      redo
-    end
-    break
+    player_role = Methods.ask_input(question)
+    break player_role if valid_input?(menu_items, player_role)
+
+    puts 'Invalid choice. Please enter an integer'
   end
-  player_role
+end
+
+def menu_screen_test(menu_items, question)
+  self.display_menu(menu_items)
+  player_role = Methods.ask_input(question)
 end
 
 def to_hash_with_letter_key(codepeg_colours)
@@ -77,17 +78,17 @@ loop do
   loop do
     Methods.print_text('Welcome to Master Mind')
 # find menu_choice
-    display_menu(main_menu_items)
-    menu_input = Methods.ask_input('Please enter choice: ')
+    question = 'Please enter choice:' 
+    menu_input = menu_screen_test(main_menu_items, question)
     break if valid_input?(main_menu_items, menu_input)
 
-    puts 'Invalid choice. Please enter an integer.'
-    redo
+    puts 'Invalid choice. Please enter an integer'
   end
   break if menu_input == '2'
 
     #role_menu_number = 1
-    role_menu_number = role_screen(role_menu_items)
+    question = 'Please choose your role'
+    role_menu_number = menu_screen(role_menu_items, question)
     player_role = menu_item_by_number(role_menu_items, role_menu_number)
     board = Board.new
     case player_role
