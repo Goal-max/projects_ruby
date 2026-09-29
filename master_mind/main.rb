@@ -34,8 +34,9 @@ def menu_item_by_number(menu_items, number)
   menu_items[number.to_i - 1]
 end
 
-def menu_screen(menu_items, question)
+def menu_screen(menu_items, question, opt = nil)
   loop do
+    Methods.print_text(opt) unless opt.nil?
     self.display_menu(menu_items)
     player_role = Methods.ask_input(question)
     break player_role if valid_input?(menu_items, player_role)
@@ -74,16 +75,10 @@ end
 colours_hash = to_hash_with_letter_key(codepeg_colours)
 
 loop do 
-  menu_input = ''
-  loop do
-    Methods.print_text('Welcome to Master Mind')
+  title = 'Welcome to Master Mind'
 # find menu_choice
-    question = 'Please enter choice:' 
-    menu_input = menu_screen_test(main_menu_items, question)
-    break if valid_input?(main_menu_items, menu_input)
-
-    puts 'Invalid choice. Please enter an integer'
-  end
+  question = 'Please enter choice:'
+  menu_input = menu_screen(main_menu_items, question, title)
   break if menu_input == '2'
 
     #role_menu_number = 1
@@ -169,6 +164,17 @@ loop do
           computer.second_patterns = []
           next
         end
+# reset pattern if base_pattern feedback has one red and one white, and 2 reds \
+# found
+        if computer.base_pattern_feedback[:red] == 1 &&
+           computer.base_pattern_feedback[:white] == 1 &&
+           computer.second_pattern_total_reds_found == 2
+          computer.second_pattern_total_reds_found = 0
+          computer.base_patterns.shift
+          computer.second_patterns = []
+          next
+        end
+
 #reset if last second pattern guessed
         if computer.second_patterns.length == 1
           computer.base_patterns.shift
