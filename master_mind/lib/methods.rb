@@ -1,6 +1,8 @@
 module Methods
-  def self.print_text(text)
-    puts "\n#{text}\n"
+  def self.print_text(*text)
+    text.each do |sentence|
+      puts "\n#{sentence}\n"
+    end
   end
 
   def self.ask_input(text)
