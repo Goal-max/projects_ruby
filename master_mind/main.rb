@@ -3,6 +3,7 @@ require_relative 'lib/board'
 require_relative 'lib/player'
 require_relative 'lib/methods'
 require_relative 'lib/computer_code_breaker'
+require_relative 'lib/menu'
 
 def display_menu(menu_items)
   menu_items.each_with_index do |item, index|
@@ -20,10 +21,12 @@ def indexed_menu(items)
   end
 end
 
-main_menu_items = %w[New\ Game Exit\ Program]
+role_menu_items = ['Code Maker', 'Code Breaker']
 
-role_menu_items = %w(Code\ Maker Code\ Breaker)
+main_menu_title = 'Welcome to Master Mind'
+main_menu_question = 'Please enter choice:'
 
+main_menu = Menu.new(main_menu_items)
 codepeg_colours = %w(red orange green yellow blue violet)
 
 def valid_input?(menu_items, input)
@@ -32,22 +35,6 @@ end
 
 def menu_item_by_number(menu_items, number)
   menu_items[number.to_i - 1]
-end
-
-def menu_screen(menu_items, question, opt = nil)
-  loop do
-    Methods.print_text(opt) unless opt.nil?
-    self.display_menu(menu_items)
-    player_role = Methods.ask_input(question)
-    break player_role if valid_input?(menu_items, player_role)
-
-    puts 'Invalid choice. Please enter an integer'
-  end
-end
-
-def menu_screen_test(menu_items, question)
-  self.display_menu(menu_items)
-  player_role = Methods.ask_input(question)
 end
 
 def to_hash_with_letter_key(codepeg_colours)
@@ -75,10 +62,7 @@ end
 colours_hash = to_hash_with_letter_key(codepeg_colours)
 
 loop do 
-  title = 'Welcome to Master Mind'
-# find menu_choice
-  question = 'Please enter choice:'
-  menu_input = menu_screen(main_menu_items, question, title)
+  menu_input = Menu.menu_screen(main_menu_items, question, title)
   break if menu_input == '2'
 
 #role_menu_input = 1
