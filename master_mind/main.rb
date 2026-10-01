@@ -5,36 +5,31 @@ require_relative 'lib/methods'
 require_relative 'lib/computer_code_breaker'
 require_relative 'lib/menu'
 
-def display_menu(menu_items)
-  menu_items.each_with_index do |item, index|
-    puts "#{index + 1}. #{item}"
-  end
-end
-
 def menu_indices(menu_items)
   menu_items.each_index.map { |index| index + 1 }
 end
 
+#up to here
 def indexed_menu(items)
   items.each_with_index.map do |item, index|
-    ["'#{index}'", item]
+    ["'#{index + 1}'", item]
   end
 end
 
-role_menu_items = ['Code Maker', 'Code Breaker']
 
+main_menu_items = ['New Game', 'Exit Program']
 main_menu_title = 'Welcome to Master Mind'
 main_menu_question = 'Please enter choice:'
+main_menu = Menu.new(main_menu_items, main_menu_question, main_menu_title)
 
-main_menu = Menu.new(main_menu_items)
+role_menu_items = ['Code Maker', 'Code Breaker']
+role_question = 'Please choose your role'
+role_menu = Menu.new(role_menu_items, role_question)
+
 codepeg_colours = %w(red orange green yellow blue violet)
 
 def valid_input?(menu_items, input)
   menu_indices(menu_items).include?(input.to_i)
-end
-
-def menu_item_by_number(menu_items, number)
-  menu_items[number.to_i - 1]
 end
 
 def to_hash_with_letter_key(codepeg_colours)
@@ -62,13 +57,12 @@ end
 colours_hash = to_hash_with_letter_key(codepeg_colours)
 
 loop do 
-  menu_input = Menu.menu_screen(main_menu_items, question, title)
+  menu_input = main_menu.menu_screen
   break if menu_input == '2'
 
 #role_menu_input = 1
-  question = 'Please choose your role'
-  role_menu_input = menu_screen(role_menu_items, question)
-  player_role = menu_item_by_number(role_menu_items, role_menu_input)
+  role_menu_input = role_menu.menu_screen
+  player_role = role_menu.menu_item_by_number
   board = Board.new
   text_reference = 'Use below reference to enter the letter for each colour.'
   case player_role
