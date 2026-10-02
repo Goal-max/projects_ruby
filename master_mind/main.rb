@@ -10,10 +10,10 @@ def menu_indices(menu_items)
 end
 
 #up to here
-def indexed_menu(items)
-  items.each_with_index.map do |item, index|
-    ["'#{index + 1}'", item]
-  end
+
+
+def valid_input?(menu_items, input)
+  menu_indices(menu_items).include?(input.to_i)
 end
 
 
@@ -27,10 +27,6 @@ role_question = 'Please choose your role'
 role_menu = Menu.new(role_menu_items, role_question)
 
 codepeg_colours = %w(red orange green yellow blue violet)
-
-def valid_input?(menu_items, input)
-  menu_indices(menu_items).include?(input.to_i)
-end
 
 def to_hash_with_letter_key(codepeg_colours)
   codepeg_colours.to_h { |colour| [colour[0].to_sym, colour] }
