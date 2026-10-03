@@ -9,14 +9,6 @@ def menu_indices(menu_items)
   menu_items.each_index.map { |index| index + 1 }
 end
 
-#up to here
-
-
-def valid_input?(menu_items, input)
-  menu_indices(menu_items).include?(input.to_i)
-end
-
-
 main_menu_items = ['New Game', 'Exit Program']
 main_menu_title = 'Welcome to Master Mind'
 main_menu_question = 'Please enter choice:'
@@ -26,7 +18,7 @@ role_menu_items = ['Code Maker', 'Code Breaker']
 role_question = 'Please choose your role'
 role_menu = Menu.new(role_menu_items, role_question)
 
-codepeg_colours = %w(red orange green yellow blue violet)
+codepeg_colours = %w[red orange green yellow blue violet]
 
 def to_hash_with_letter_key(codepeg_colours)
   codepeg_colours.to_h { |colour| [colour[0].to_sym, colour] }
@@ -54,13 +46,13 @@ colours_hash = to_hash_with_letter_key(codepeg_colours)
 
 loop do 
   menu_input = main_menu.menu_screen
-  break if menu_input == '2'
+  break if menu_input == 'Exit Program'
 
 #role_menu_input = 1
-  role_menu_input = role_menu.menu_screen
-  player_role = role_menu.menu_item_by_number
+  player_role = role_menu.menu_screen
   board = Board.new
   text_reference = 'Use below reference to enter the letter for each colour.'
+# create secret code 
   case player_role
   when 'Code Breaker'
     board.generate_code(codepeg_colours)
@@ -71,7 +63,7 @@ loop do
   when 'Code Maker'
     Methods.print_text(text_reference)
     print_hash_menu(colours_hash)
-    text = 'Please enter four colour secret code using one letter for each'\
+    text = 'Please enter four colour secret code using one letter for each '\
           'colour e.g. rrbi'
     board.secret_code = Methods.ask_player(colours_hash, text)
     puts "Secret code is: #{board.secret_code}"
@@ -79,9 +71,9 @@ loop do
   end
   12.times do |count|
     case player_role
-# find player input
+# guess secret code
     when 'Code Breaker'
-      text = 'Please guess the secret code (use one letter for each'\
+      text = 'Please guess the secret code (use one letter for each '\
             'colour e.g. rrbi)'
       input = Methods.ask_player(colours_hash, text)
     when 'Code Maker'
