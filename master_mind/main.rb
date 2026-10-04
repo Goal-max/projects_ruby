@@ -5,6 +5,7 @@ require_relative 'lib/methods'
 require_relative 'lib/computer_code_breaker'
 require_relative 'lib/menu'
 require_relative 'lib/indexed_menu'
+require_relative 'lib/hash_menu'
 
 def menu_indices(menu_items)
   menu_items.each_index.map { |index| index + 1 }
@@ -20,6 +21,7 @@ role_question = 'Please choose your role'
 role_menu = IndexMenu.new(role_menu_items, role_question)
 
 codepeg_colours = %w[red orange green yellow blue violet]
+colour_title = 'Use below reference to enter the letter for each colour.'
 
 def to_hash_with_letter_key(codepeg_colours)
   codepeg_colours.to_h { |colour| [colour[0].to_sym, colour] }
@@ -51,22 +53,17 @@ loop do
 
 #role_menu_input = 1
   player_role = role_menu.menu_screen
+  colour_menu = HashMenu.new(codepeg_colours, player_role)
   board = Board.new
-  text_reference = 'Use below reference to enter the letter for each colour.'
 # create secret code 
   case player_role
   when 'Code Breaker'
     board.generate_code(codepeg_colours)
     text1 = 'The four colour secret code has been generated.'
     Methods.print_text(text1)
-    Methods.print_text(text_reference)
-    print_hash_menu(colours_hash)
+    colour_menu.menu_screen
   when 'Code Maker'
-    Methods.print_text(text_reference)
-    print_hash_menu(colours_hash)
-    text = 'Please enter four colour secret code using one letter for each '\
-          'colour e.g. rrbi'
-    board.secret_code = Methods.ask_player(colours_hash, text)
+    board.secret_code = colour_menu.menu_screen
     puts "Secret code is: #{board.secret_code}"
     computer = Computer.new(board, codepeg_colours)
   end
@@ -74,9 +71,9 @@ loop do
     case player_role
 # guess secret code
     when 'Code Breaker'
-      text = 'Please guess the secret code (use one letter for each '\
-            'colour e.g. rrbi)'
-      input = Methods.ask_player(colours_hash, text)
+      code_breaker_question = 'Please guess the secret code (use one letter '\
+                                'for each colour e.g. rrbi)'
+      input = Methods.ask_player(colours_hash, code_breaker_question)
     when 'Code Maker'
       input = computer.take_pattern
     end

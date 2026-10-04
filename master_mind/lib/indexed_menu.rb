@@ -4,6 +4,7 @@ class IndexMenu < Menu
   def initialize(items, question, title = nil)
     super(question, title)
     @menu = indexed_menu(items)
+    @invalid_choice_text = 'Invalid choice. Please enter an integer'
   end
 
   def indexed_menu(items)
@@ -19,6 +20,12 @@ class IndexMenu < Menu
       break choice unless choice.nil?
 
       puts invalid_choice
+    end
+  end
+
+  def display_menu
+    @menu.each_pair do |key, value|
+      puts "#{key}. #{value}"
     end
   end
 end
