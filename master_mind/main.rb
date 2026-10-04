@@ -4,6 +4,7 @@ require_relative 'lib/player'
 require_relative 'lib/methods'
 require_relative 'lib/computer_code_breaker'
 require_relative 'lib/menu'
+require_relative 'lib/indexed_menu'
 
 def menu_indices(menu_items)
   menu_items.each_index.map { |index| index + 1 }
@@ -12,11 +13,11 @@ end
 main_menu_items = ['New Game', 'Exit Program']
 main_menu_title = 'Welcome to Master Mind'
 main_menu_question = 'Please enter choice:'
-main_menu = Menu.new(main_menu_items, main_menu_question, main_menu_title)
+main_menu = IndexMenu.new(main_menu_items, main_menu_question, main_menu_title)
 
 role_menu_items = ['Code Maker', 'Code Breaker']
 role_question = 'Please choose your role'
-role_menu = Menu.new(role_menu_items, role_question)
+role_menu = IndexMenu.new(role_menu_items, role_question)
 
 codepeg_colours = %w[red orange green yellow blue violet]
 

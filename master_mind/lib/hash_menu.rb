@@ -1,19 +1,19 @@
-class IndexMenu < Menu
+class HashMenu < Menu
   attr_reader :menu, :choice
 
   def initialize(items, question, title = nil)
     super(question, title)
-    @menu = indexed_menu(items)
+    @menu = hash_menu(items)
   end
 
-  def indexed_menu(items)
-    items.each_with_index.to_h do |item, index|
-      [(index + 1).to_s.to_sym, item]
+  def hash_menu(items)
+    items.each.to_h do |item|
+      [item[0].to_sym, item]
     end
   end
 
   def menu_screen
-    loop do
+    loop do 
       input = super
       @choice = chosen_item(input)
       break choice unless choice.nil?
