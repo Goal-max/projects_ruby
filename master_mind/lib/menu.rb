@@ -13,7 +13,7 @@ class Menu
     Methods.ask_input(question)
   end
 
-  def chosen_item(input)
+  def letter_to_symbol(input)
     menu[input.to_sym]
   end
 end

@@ -61,7 +61,6 @@ loop do
     board.generate_code(codepeg_colours)
     text1 = 'The four colour secret code has been generated.'
     Methods.print_text(text1)
-    colour_menu.menu_screen
   when 'Code Maker'
     board.secret_code = colour_menu.menu_screen
     puts "Secret code is: #{board.secret_code}"
@@ -71,9 +70,7 @@ loop do
     case player_role
 # guess secret code
     when 'Code Breaker'
-      code_breaker_question = 'Please guess the secret code (use one letter '\
-                                'for each colour e.g. rrbi)'
-      input = Methods.ask_player(colours_hash, code_breaker_question)
+      input = colour_menu.menu_screen
     when 'Code Maker'
       input = computer.take_pattern
     end

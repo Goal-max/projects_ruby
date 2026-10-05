@@ -1,5 +1,5 @@
 class IndexMenu < Menu
-  attr_reader :menu, :choice
+  attr_reader :menu, :choice, :invalid_choice_text
 
   def initialize(items, question, title = nil)
     super(question, title)
@@ -16,10 +16,10 @@ class IndexMenu < Menu
   def menu_screen
     loop do
       input = super
-      @choice = chosen_item(input)
+      @choice = letter_to_symbol(input)
       break choice unless choice.nil?
 
-      puts invalid_choice
+      puts invalid_choice_text
     end
   end
 
