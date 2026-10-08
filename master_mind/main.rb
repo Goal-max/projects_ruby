@@ -68,6 +68,7 @@ loop do
     computer = Computer.new(board, codepeg_colours)
   end
   12.times do |count|
+p computer.base_patterns
     case player_role
 # guess secret code
     when 'Code Breaker'
@@ -113,8 +114,6 @@ out secret code positions taken we have already worked out
       base_pattern_reds = computer.base_pattern_feedback[:red]
       last_feedback_reds = last_feedback[:red]
       feedback_difference = last_feedback_reds - base_pattern_reds
-      next if feedback_difference == 0
-
 #store colour worked out
       case feedback_difference
       when -1
@@ -124,10 +123,7 @@ out secret code positions taken we have already worked out
         computer.secret_code_guess[secretcode_position_index] =
           computer.second_patterns[0][1][secretcode_position_index]
       end
-#update total reds found
-      if feedback_difference != 0
-        computer.second_pattern_total_reds_found += 1
-      end
+      computer.second_pattern_total_reds_found += 1
 # reset pattern if found 1 red/white
       if base_pattern_total_red_white == 1 &&
         computer.second_pattern_total_reds_found == 1
