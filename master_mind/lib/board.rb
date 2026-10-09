@@ -62,8 +62,4 @@ class Board
     Methods.print_text('incorrect guess')
     self.list_guesses_and_feedback
   end
-
-  def total_white_red(count)
-    guesses_and_feedback[1]
-  end
 end

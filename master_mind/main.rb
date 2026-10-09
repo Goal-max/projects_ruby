@@ -21,38 +21,11 @@ role_question = 'Please choose your role'
 role_menu = IndexMenu.new(role_menu_items, role_question)
 
 codepeg_colours = %w[red orange green yellow blue violet]
-colour_title = 'Use below reference to enter the letter for each colour.'
-
-=begin
-def to_hash_with_letter_key(codepeg_colours)
-  codepeg_colours.to_h { |colour| [colour[0].to_sym, colour] }
-end
-
-def print_hash_menu(hash)
-  hash.each_pair do |key, value|
-    puts "#{key} = #{value}"
-  end
-end
-
-def remove_whitespace(string)
-  string.downcase.gsub(/\s/, '')
-end
-
-def string_to_letters(string)
-  string.split('')
-end
-
-def array_letters_to_symbols(array)
-  array.map(&:to_sym)
-end
-colours_hash = to_hash_with_letter_key(codepeg_colours)
-=end
 
 loop do 
   menu_input = main_menu.menu_screen
   break if menu_input == 'Exit Program'
 
-#role_menu_input = 1
   player_role = role_menu.menu_screen
   colour_menu = HashMenu.new(codepeg_colours, player_role)
   board = Board.new
@@ -68,7 +41,6 @@ loop do
     computer = Computer.new(board, codepeg_colours)
   end
   12.times do |count|
-p computer.base_patterns
     case player_role
 # guess secret code
     when 'Code Breaker'
@@ -103,10 +75,11 @@ p computer.base_patterns
       base_pattern_total_red_white =
         computer.base_pattern_feedback[:total_red_white]
       base_pattern_reds = computer.base_pattern_feedback[:red]
+      base_pattern_whites = computer.base_pattern_feedback[:white]
       last_feedback_reds = last_feedback[:red]
-      feedback_difference = last_feedback_reds - base_pattern_reds
+      change_in_reds = last_feedback_reds - base_pattern_reds
 #store colour worked out
-      case feedback_difference
+      case change_in_reds
       when -1
         computer.secret_code_guess[secretcode_position_index] =
           computer.base_patterns[0][secretcode_position_index]
@@ -114,16 +87,12 @@ p computer.base_patterns
         computer.secret_code_guess[secretcode_position_index] =
           computer.second_patterns[0][1][secretcode_position_index]
       end
-      computer.second_pattern_total_reds_found += 1
+      computer.second_pattern_total_reds_found += 1 if change_in_reds != 0
 # reset pattern if found 1 red/white
-      if base_pattern_total_red_white == 1 &&
-        computer.second_pattern_total_reds_found == 1
-        computer.clear_patterns
-# reset pattern if base_pattern feedback has one red and one white, and 2 reds \
-# found
-      elsif computer.base_pattern_feedback[:red] == 1 &&
-         computer.base_pattern_feedback[:white] == 1 &&
-         computer.second_pattern_total_reds_found == 2
+      if computer.second_pattern_total_reds_found ==
+         base_pattern_total_red_white &&
+         base_pattern_reds != 2 &&
+         base_pattern_whites != 2
         computer.clear_patterns
 #reset if last second pattern guessed
       elsif computer.second_patterns.length == 1
@@ -132,6 +101,5 @@ p computer.base_patterns
         computer.second_patterns.shift
       end
     end
-  menu_input = 1
   end
 end
