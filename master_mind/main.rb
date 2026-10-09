@@ -100,15 +100,6 @@ p computer.base_patterns
 #computer checks for change in feedback reds 
     else
       secretcode_position_index = computer.second_patterns[0][0]
-=begin
-below not needed as already second pattterns does not create patterns to work
-out secret code positions taken we have already worked out
-#if position already guessed, skip to next position
-      unless computer.secret_code_guess[secretcode_position_index].nil?
-        computer.second_patterns.shift
-        next
-      end
-=end
       base_pattern_total_red_white =
         computer.base_pattern_feedback[:total_red_white]
       base_pattern_reds = computer.base_pattern_feedback[:red]
@@ -128,24 +119,18 @@ out secret code positions taken we have already worked out
       if base_pattern_total_red_white == 1 &&
         computer.second_pattern_total_reds_found == 1
         computer.clear_patterns
-        next
-
-      end
 # reset pattern if base_pattern feedback has one red and one white, and 2 reds \
 # found
-      if computer.base_pattern_feedback[:red] == 1 &&
+      elsif computer.base_pattern_feedback[:red] == 1 &&
          computer.base_pattern_feedback[:white] == 1 &&
          computer.second_pattern_total_reds_found == 2
         computer.clear_patterns
-        next
-      end
-
 #reset if last second pattern guessed
-      if computer.second_patterns.length == 1
-        computer.base_patterns.shift
-        computer.second_pattern_total_reds_found = 0
+      elsif computer.second_patterns.length == 1
+        computer.clear_patterns
+      else
+        computer.second_patterns.shift
       end
-      computer.second_patterns.shift
     end
   menu_input = 1
   end

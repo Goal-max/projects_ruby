@@ -75,8 +75,8 @@ class Computer
   end
 
   def clear_patterns
-    computer.second_pattern_total_reds_found = 0
-    computer.base_patterns.shift
-    computer.second_patterns = []
+    self.second_pattern_total_reds_found = 0
+    base_patterns.shift
+    self.second_patterns = []
   end
 end
