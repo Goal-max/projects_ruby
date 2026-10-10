@@ -2,10 +2,10 @@ require 'debug'
 require_relative 'lib/board'
 require_relative 'lib/player'
 require_relative 'lib/methods'
-require_relative 'lib/computer_code_breaker'
 require_relative 'lib/menu'
 require_relative 'lib/indexed_menu'
 require_relative 'lib/hash_menu'
+require_relative 'lib/patterns'
 
 def menu_indices(menu_items)
   menu_items.each_index.map { |index| index + 1 }
@@ -38,15 +38,15 @@ loop do
   when 'Code Maker'
     board.secret_code = colour_menu.menu_screen
     puts "Secret code is: #{board.secret_code}"
-    computer = Computer.new(board, codepeg_colours)
+    patterns = Patterns.new(board, codepeg_colours)
   end
-  12.times do |count|
+  12.times do
     case player_role
 # guess secret code
     when 'Code Breaker'
       input = colour_menu.menu_screen
     when 'Code Maker'
-      input = computer.take_pattern
+      input = patterns.take_pattern
     end
     if board.guess_correct?(input)
       puts 'win'
@@ -57,48 +57,48 @@ loop do
     end
     next if player_role == 'Code Breaker'
 
-# computer calculates next guess
-    last_feedback = board.guesses_and_feedback[count][1]
-#computer creates second patterns if it has not been created yet
-    if computer.second_patterns.empty?
-      computer.base_pattern_feedback = last_feedback
-      total_red_whites = computer.base_pattern_feedback[:total_red_white]
+    last_feedback = board.guesses_and_feedback[-1][1]
+
+  #patterns creates second patterns if it has not been created yet
+    if patterns.second_patterns.empty?
+      patterns.base_pattern_feedback = last_feedback
+      total_red_whites = patterns.base_pattern_feedback[:total_red_white]
       if total_red_whites == 0
-        computer.base_patterns.shift
+        patterns.base_patterns.shift
       elsif total_red_whites > 0 
-        computer.create_second_pattern(computer.colours_paired[0])
+        patterns.create_second_pattern(patterns.colours_paired[0])
       end
-      computer.colours_paired.shift
-#computer checks for change in feedback reds 
+      patterns.colours_paired.shift
     else
-      secretcode_position_index = computer.second_patterns[0][0]
+      secretcode_position_index = patterns.second_patterns[0][0]
       base_pattern_total_red_white =
-        computer.base_pattern_feedback[:total_red_white]
-      base_pattern_reds = computer.base_pattern_feedback[:red]
-      base_pattern_whites = computer.base_pattern_feedback[:white]
+        patterns.base_pattern_feedback[:total_red_white]
+      base_pattern_whites = patterns.base_pattern_feedback[:white]
+    #patterns checks for change in feedback reds 
+      base_pattern_reds = patterns.base_pattern_feedback[:red]
       last_feedback_reds = last_feedback[:red]
       change_in_reds = last_feedback_reds - base_pattern_reds
-#store colour worked out
+    #store colour worked out
       case change_in_reds
       when -1
-        computer.secret_code_guess[secretcode_position_index] =
-          computer.base_patterns[0][secretcode_position_index]
+        patterns.secret_code_guess[secretcode_position_index] =
+          patterns.base_patterns[0][secretcode_position_index]
       when 1
-        computer.secret_code_guess[secretcode_position_index] =
-          computer.second_patterns[0][1][secretcode_position_index]
+        patterns.secret_code_guess[secretcode_position_index] =
+          patterns.second_patterns[0][1][secretcode_position_index]
       end
-      computer.second_pattern_total_reds_found += 1 if change_in_reds != 0
-# reset pattern if found 1 red/white
-      if computer.second_pattern_total_reds_found ==
+      patterns.second_pattern_total_reds_found += 1 if change_in_reds != 0
+    # reset pattern if found 1 red/white
+      if patterns.second_pattern_total_reds_found ==
          base_pattern_total_red_white &&
          base_pattern_reds != 2 &&
          base_pattern_whites != 2
-        computer.clear_patterns
-#reset if last second pattern guessed
-      elsif computer.second_patterns.length == 1
-        computer.clear_patterns
+        patterns.clear_patterns
+    #reset if last second pattern guessed
+      elsif patterns.second_patterns.length == 1
+        patterns.clear_patterns
       else
-        computer.second_patterns.shift
+        patterns.second_patterns.shift
       end
     end
   end

@@ -1,5 +1,5 @@
-class Computer
-  attr_reader :colours, :colours_indices
+class Patterns
+  attr_reader :colours, :colours_indices, :board
   attr_accessor :colours_paired,
                 :base_patterns,
                 :base_pattern_feedback,
@@ -20,10 +20,8 @@ class Computer
 
   def divide_into_pairs
     pair = []
-    i = 0
-    while i < colours.length
-      pair << [colours[i], colours[i + 1]]
-      i += 2
+    until colours.empty?
+      pair << colours.shift(2)
     end
     pair
   end
@@ -31,9 +29,7 @@ class Computer
   def create_base_pattern
     pattern_list = []
     colours_paired.each do |colour_pair|
-      first_colour = colour_pair[0]
-      second_colour = colour_pair[1]
-      pattern_list << create_first_pattern(first_colour, second_colour)
+      pattern_list << create_first_pattern(colour_pair[0], colour_pair[1])
     end
     pattern_list
   end
