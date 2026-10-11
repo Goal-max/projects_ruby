@@ -88,7 +88,7 @@ loop do
           patterns.second_patterns[0][1][secretcode_position_index]
       end
       patterns.second_pattern_total_reds_found += 1 if change_in_reds != 0
-    # reset pattern if found 1 red/white
+    # reset pattern if < 2 red/white
       if patterns.second_pattern_total_reds_found ==
          base_pattern_total_red_white &&
          base_pattern_reds != 2 &&

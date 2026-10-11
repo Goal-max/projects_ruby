@@ -75,4 +75,54 @@ class Patterns
     base_patterns.shift
     self.second_patterns = []
   end
+
+  def analyse_feedback
+    if second_patterns.empty?
+      self.base_pattern_feedback = board.guesses_and_feedback[-1][1]
+
+  end
+  last_feedback = board.guesses_and_feedback[-1][1]
+
+#patterns creates second patterns if it has not been created yet
+  if patterns.second_patterns.empty?
+    patterns.base_pattern_feedback = last_feedback
+    total_red_whites = patterns.base_pattern_feedback[:total_red_white]
+    if total_red_whites == 0
+      patterns.base_patterns.shift
+    elsif total_red_whites > 0 
+      patterns.create_second_pattern(patterns.colours_paired[0])
+    end
+    patterns.colours_paired.shift
+  else
+    secretcode_position_index = patterns.second_patterns[0][0]
+    base_pattern_total_red_white =
+      patterns.base_pattern_feedback[:total_red_white]
+    base_pattern_whites = patterns.base_pattern_feedback[:white]
+  #patterns checks for change in feedback reds 
+    base_pattern_reds = patterns.base_pattern_feedback[:red]
+    last_feedback_reds = last_feedback[:red]
+    change_in_reds = last_feedback_reds - base_pattern_reds
+  #store colour worked out
+    case change_in_reds
+    when -1
+      patterns.secret_code_guess[secretcode_position_index] =
+        patterns.base_patterns[0][secretcode_position_index]
+    when 1
+      patterns.secret_code_guess[secretcode_position_index] =
+        patterns.second_patterns[0][1][secretcode_position_index]
+    end
+    patterns.second_pattern_total_reds_found += 1 if change_in_reds != 0
+  # reset pattern if < 2 red/white
+    if patterns.second_pattern_total_reds_found ==
+       base_pattern_total_red_white &&
+       base_pattern_reds != 2 &&
+       base_pattern_whites != 2
+      patterns.clear_patterns
+  #reset if last second pattern guessed
+    elsif patterns.second_patterns.length == 1
+      patterns.clear_patterns
+    else
+      patterns.second_patterns.shift
+    end
+  end
 end
