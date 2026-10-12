@@ -6,6 +6,7 @@ require_relative 'lib/menu'
 require_relative 'lib/indexed_menu'
 require_relative 'lib/hash_menu'
 require_relative 'lib/patterns'
+require_relative 'lib/analyse_feedback'
 
 def menu_indices(menu_items)
   menu_items.each_index.map { |index| index + 1 }
@@ -39,6 +40,7 @@ loop do
     board.secret_code = colour_menu.menu_screen
     puts "Secret code is: #{board.secret_code}"
     patterns = Patterns.new(board, codepeg_colours)
+    analyse_feedback = AnalyseFeedback.new(board, patterns)
   end
   12.times do
     case player_role
@@ -55,6 +57,10 @@ loop do
     else
       board.check_guess(input)
     end
+    analyse_feedback.analyse_feedback if player_role == 'Code Maker'
+  end
+end
+=begin
     next if player_role == 'Code Breaker'
 
     last_feedback = board.guesses_and_feedback[-1][1]
@@ -103,3 +109,4 @@ loop do
     end
   end
 end
+=end

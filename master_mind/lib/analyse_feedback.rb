@@ -2,10 +2,16 @@ class AnalyseFeedback
   attr_reader :board,
               :patterns
 
+  attr_accessor :secret_code_position_index,
+                :last_feedback,
+                :base_pattern_total_red_white,
+                :base_pattern_reds,
+                :base_pattern_whites,
+                :second_pattern_total_reds_found
+
   def initialize(board, patterns)
     @board = board
     @patterns = patterns
-    @last_feedback = nil
   end
 
   def analyse_feedback
@@ -17,16 +23,16 @@ class AnalyseFeedback
   end
 
   def assign_base_variables
-    @base_pattern_feedback = board.guesses_and_feedback[-1][1]
-    @base_pattern_total_red_white = base_pattern_feedback[:total_red_white]
-    @base_pattern_reds = base_pattern_feedback[:red]
-    @base_pattern_whites = base_pattern_feedback[:white]
-    @second_pattern_total_reds_found = nil
+    base_pattern_feedback = board.guesses_and_feedback[-1][1]
+    self.base_pattern_total_red_white = base_pattern_feedback[:total_red_white]
+    self.base_pattern_reds = base_pattern_feedback[:red]
+    self.base_pattern_whites = base_pattern_feedback[:white]
+    self.second_pattern_total_reds_found = 0
   end
 
   def process_base_pattern_feedback
     assign_base_variables
-    if base_pattern_total_red_white == 0
+    if @base_pattern_total_red_white == 0
       patterns.base_patterns.shift
     else
       patterns.create_second_pattern(patterns.colours_paired[0])
@@ -35,38 +41,38 @@ class AnalyseFeedback
   end
 
   def create_second_pattern_variables
-    @secretcode_position_index = patterns.second_patterns[0][0]
-    @last_feedback = board.guesses_and_feedback[-1][1]
+    self.secret_code_position_index = patterns.second_patterns[0][0]
+    self.last_feedback = board.guesses_and_feedback[-1][1]
   end
 
   def change_in_reds
-    last_feedback[:red] - patterns.base_pattern_feedback[:red]
+    last_feedback[:red] - self.base_pattern_reds
   end
 
   def store_found_colour(change_in_reds)
-    patterns.secret_code_guess[@secretcode_position_index] =
+    patterns.secret_code_guess[@secret_code_position_index] =
       case change_in_reds
       when -1
         base_pattern_colour_at_index
       when 1
         second_pattern_colour_at_index
       end
-    @second_pattern_total_reds_found += 1 if change_in_reds != 0
+    self.second_pattern_total_reds_found += 1 if change_in_reds != 0
   end
 
   def base_pattern_colour_at_index
-    patterns.base_patterns[0][@secretcode_position_index]
+    patterns.base_patterns[0][@secret_code_position_index]
   end
 
   def second_pattern_colour_at_index
-    patterns.second_patterns[0][1][@secretcode_position_index]
+    patterns.second_patterns[0][1][@secret_code_position_index]
   end
 
   def max_reds_found?
-    second_pattern_total_reds_found ==
-      base_pattern_total_red_white &&
-      base_pattern_reds != 2 &&
-      base_pattern_whites != 2
+    @second_pattern_total_reds_found ==
+      @base_pattern_total_red_white &&
+      @base_pattern_reds != 2 &&
+      @base_pattern_whites != 2
   end
 
   def last_second_pattern?
