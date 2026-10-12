@@ -74,15 +74,19 @@ class AnalyseFeedback
       patterns.second_patterns[0][1][@secretcode_position_index]
   end
 
+  def max_reds_found?
+    patterns.second_pattern_total_reds_found ==
+    base_pattern_total_red_white &&
+    base_pattern_reds != 2 &&
+    base_pattern_whites != 2
+  end
+
+  def last_second_pattern?
+    patterns.second_patterns.length == 1
+  end
+
   def adjust_patterns_for_next_guess
-  # reset pattern if < 2 red/white
-    if patterns.second_pattern_total_reds_found ==
-       base_pattern_total_red_white &&
-       base_pattern_reds != 2 &&
-       base_pattern_whites != 2
-      patterns.clear_patterns
-  #reset if last second pattern guessed
-    elsif patterns.second_patterns.length == 1
+    if max_reds_found? || last_second_pattern?
       patterns.clear_patterns
     else
       patterns.second_patterns.shift
