@@ -2,15 +2,6 @@ class AnalyseFeedback
   attr_reader :board,
               :patterns
 
-=begin
-  attr_accessor :last_feedback,
-                :base_pattern_feedback,
-                :secretcode_position_index, 
-                :base_pattern_total_red_white,
-                :base_pattern_whites,
-                :second_pattern_total_reds_found
-=end                
-
   def initialize(board, patterns)
     @board = board
     @patterns = patterns
@@ -42,43 +33,40 @@ class AnalyseFeedback
     end
     patterns.colours_paired.shift
   end
-  
+
   def create_second_pattern_variables
     @secretcode_position_index = patterns.second_patterns[0][0]
     @last_feedback = board.guesses_and_feedback[-1][1]
   end
 
   def change_in_reds
-    base_pattern_reds = patterns.base_pattern_feedback[:red]
-    last_feedback_reds = last_feedback[:red]
-    last_feedback_reds - base_pattern_reds
+    last_feedback[:red] - patterns.base_pattern_feedback[:red]
   end
 
-  def store_colour(change_in_reds)
-    case change_in_reds
-    when -1
-      copy_base_colour_to_code
-    when 1
-      copy_guess_colour_to_code
-    end
+  def store_found_colour(change_in_reds)
+    patterns.secret_code_guess[@secretcode_position_index] =
+      case change_in_reds
+      when -1
+        base_pattern_colour_at_index
+      when 1
+        second_pattern_colour_at_index
+      end
     @second_pattern_total_reds_found += 1 if change_in_reds != 0
   end
 
-  def copy_base_colour_to_code
-    patterns.secret_code_guess[@secretcode_position_index] =
-      patterns.base_patterns[0][@secretcode_position_index]
+  def base_pattern_colour_at_index
+    patterns.base_patterns[0][@secretcode_position_index]
   end
 
-  def copy_guess_colour_to_code
-    patterns.secret_code_guess[@secretcode_position_index] =
-      patterns.second_patterns[0][1][@secretcode_position_index]
+  def second_pattern_colour_at_index
+    patterns.second_patterns[0][1][@secretcode_position_index]
   end
 
   def max_reds_found?
-    patterns.second_pattern_total_reds_found ==
-    base_pattern_total_red_white &&
-    base_pattern_reds != 2 &&
-    base_pattern_whites != 2
+    second_pattern_total_reds_found ==
+      base_pattern_total_red_white &&
+      base_pattern_reds != 2 &&
+      base_pattern_whites != 2
   end
 
   def last_second_pattern?
@@ -95,7 +83,7 @@ class AnalyseFeedback
 
   def process_second_pattern_feedback
     create_second_pattern_variables
-    store_colour(change_in_reds)
+    store_found_colour(change_in_reds)
     adjust_patterns_for_next_guess
   end
 end
