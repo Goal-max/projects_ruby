@@ -61,11 +61,11 @@ class AnalyseFeedback
   end
 
   def base_pattern_colour_at_index
-    patterns.base_patterns[0][@secret_code_position_index]
+    patterns.base_patterns[0][secret_code_position_index]
   end
 
   def second_pattern_colour_at_index
-    patterns.second_patterns[0][1][@secret_code_position_index]
+    patterns.second_patterns[0][1][secret_code_position_index]
   end
 
   def max_reds_found?
