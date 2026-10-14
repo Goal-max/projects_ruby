@@ -1,13 +1,5 @@
 class AnalyseFeedback
-  attr_reader :board,
-              :patterns
-
-  attr_accessor :secret_code_position_index,
-                :last_feedback,
-                :base_pattern_total_red_white,
-                :base_pattern_reds,
-                :base_pattern_whites,
-                :second_pattern_total_reds_found
+  attr_reader :patterns
 
   def initialize(board, patterns)
     @board = board
@@ -23,11 +15,11 @@ class AnalyseFeedback
   end
 
   def assign_base_variables
-    base_pattern_feedback = board.guesses_and_feedback[-1][1]
-    self.base_pattern_total_red_white = base_pattern_feedback[:total_red_white]
-    self.base_pattern_reds = base_pattern_feedback[:red]
-    self.base_pattern_whites = base_pattern_feedback[:white]
-    self.second_pattern_total_reds_found = 0
+    base_pattern_feedback = @board.guesses_and_feedback[-1][1]
+    @base_pattern_total_red_white = base_pattern_feedback[:total_red_white]
+    @base_pattern_reds = base_pattern_feedback[:red]
+    @base_pattern_whites = base_pattern_feedback[:white]
+    @second_pattern_total_reds_found = 0
   end
 
   def process_base_pattern_feedback
@@ -41,12 +33,12 @@ class AnalyseFeedback
   end
 
   def create_second_pattern_variables
-    self.secret_code_position_index = patterns.second_patterns[0][0]
-    self.last_feedback = board.guesses_and_feedback[-1][1]
+    @secret_code_position_index = patterns.second_patterns[0][0]
+    @last_feedback = @board.guesses_and_feedback[-1][1]
   end
 
   def change_in_reds
-    last_feedback[:red] - self.base_pattern_reds
+    @last_feedback[:red] - @base_pattern_reds
   end
 
   def store_found_colour(change_in_reds)
@@ -57,15 +49,15 @@ class AnalyseFeedback
       when 1
         second_pattern_colour_at_index
       end
-    self.second_pattern_total_reds_found += 1 if change_in_reds != 0
+    @second_pattern_total_reds_found += 1 if change_in_reds != 0
   end
 
   def base_pattern_colour_at_index
-    patterns.base_patterns[0][secret_code_position_index]
+    patterns.base_patterns[0][@secret_code_position_index]
   end
 
   def second_pattern_colour_at_index
-    patterns.second_patterns[0][1][secret_code_position_index]
+    patterns.second_patterns[0][1][@secret_code_position_index]
   end
 
   def max_reds_found?
