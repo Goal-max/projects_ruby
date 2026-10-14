@@ -1,27 +1,20 @@
 class Patterns
-  attr_reader :colours, :colours_indices, :board
   attr_accessor :base_patterns,
-                :base_pattern_feedback,
                 :second_patterns,
-                :secret_code_guess,
-                :second_pattern_total_reds_found
+                :secret_code_guess
 
   def initialize(board, colours)
     @board = board
     @colours = colours.shuffle
     @colours_paired = divide_into_pairs
     @base_patterns = create_base_pattern
-    @base_pattern_feedback = {}
     @second_patterns = []
     @secret_code_guess = create_secret_code_guess_array
-    @second_pattern_total_reds_found = 0
   end
 
   def divide_into_pairs
     pair = []
-    until colours.empty?
-      pair << colours.shift(2)
-    end
+    pair << @colours.shift(2) until @colours.empty?
     pair
   end
 
