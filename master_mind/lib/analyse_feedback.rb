@@ -27,9 +27,9 @@ class AnalyseFeedback
     if @base_pattern_total_red_white == 0
       patterns.base_patterns.shift
     else
-      patterns.create_second_pattern(patterns.colours_paired[0])
+      patterns.create_second_pattern
     end
-    patterns.colours_paired.shift
+    patterns.remove_used_colours
   end
 
   def create_second_pattern_variables

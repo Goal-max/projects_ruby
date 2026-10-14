@@ -1,7 +1,6 @@
 class Patterns
   attr_reader :colours, :colours_indices, :board
-  attr_accessor :colours_paired,
-                :base_patterns,
+  attr_accessor :base_patterns,
                 :base_pattern_feedback,
                 :second_patterns,
                 :secret_code_guess,
@@ -28,7 +27,7 @@ class Patterns
 
   def create_base_pattern
     pattern_list = []
-    colours_paired.each do |colour_pair|
+    @colours_paired.each do |colour_pair|
       pattern_list << create_first_pattern(colour_pair[0], colour_pair[1])
     end
     pattern_list
@@ -38,9 +37,9 @@ class Patterns
     [first_colour, first_colour, second_colour, second_colour]
   end
 
-  def create_second_pattern(colour_pair)
-    first_colour = colour_pair[0]
-    second_colour = colour_pair[1]
+  def create_second_pattern
+    first_colour = @colours_paired[0][0]
+    second_colour = @colours_paired[0][1]
     self.second_patterns = base_patterns[0].each_index.map do |index|
       next nil unless secret_code_guess[index].nil?
 
@@ -54,6 +53,10 @@ class Patterns
       [index, pattern]
     end
     second_patterns.delete(nil)
+  end
+
+  def remove_used_colours
+    @colours_paired.shift
   end
 
   def create_secret_code_guess_array
