@@ -10,6 +10,7 @@ class Patterns
     @base_patterns = create_base_pattern
     @second_patterns = []
     @secret_code_guess = create_secret_code_guess_array
+    @analyser = AnalyseFeedback.new(board, self)
   end
 
   def divide_into_pairs
@@ -64,6 +65,10 @@ class Patterns
     else
       second_patterns[0][1]
     end
+  end
+
+  def analyse_feedback
+    @analyser.analyse_feedback
   end
 
   def clear_patterns
