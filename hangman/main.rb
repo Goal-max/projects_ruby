@@ -1,17 +1,16 @@
-def select_words(file, min_length, max_length)
-  file.readlines(chomp: true).select do |word|
-    word.length.between?(min_length, max_length)
-  end
-end
+require_relative 'lib/words'
+require_relative 'lib/computer'
+require_relative 'lib/menu_operation'
+require_relative 'lib/number_menu'
 
-f = File.open('/home/rain/Downloads/google-10000-english-no-swears.txt')
-min_length = 5
-max_length = 12
-words = select_words(f, min_length, max_length)
+file_location = '/home/rain/Downloads/google-10000-english-no-swears.txt'
+min_word_length = 5
+max_word_length = 12
 
-chosen_word = words.sample
-puts chosen_word
+computer = Computer.new(Words.new(file_location,
+                                  min_word_length,
+                                  max_word_length))
+menu = MenuOperation.new
+main_menu = NumberMenu.new
 
-8.times do
-
-end
+menu.operate(main_menu)
