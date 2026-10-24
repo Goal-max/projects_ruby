@@ -4,6 +4,7 @@ class MenuOperation
       menu.display
       input = gets.chomp
       break input if menu.valid_input?(input)
+
       puts 'Invalid input'
       puts
     end

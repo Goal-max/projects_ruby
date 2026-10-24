@@ -1,4 +1,4 @@
-class NumberMenu
+class HashMenu
   attr_reader :hash_menu
 
   def initialize
@@ -18,6 +18,7 @@ class NumberMenu
     hash_menu.each_pair do |key, value|
       puts "#{key}. #{value}"
     end
+    puts 'Please input an integer'
   end
 
   def valid_input?(input)
