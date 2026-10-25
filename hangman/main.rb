@@ -17,3 +17,13 @@ if input == '1'
                                   min_word_length,
                                   max_word_length))
 end
+
+puts 'Please guess word:'
+input = gets.chomp
+
+menu_options = {
+  '1': 'correct_letter?',
+  '2': 'correct_word?'
+}
+
+computer.send(menu_options[input.length.to_s.to_sym], input)
