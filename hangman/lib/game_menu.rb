@@ -1,6 +1,8 @@
 class GameMenu
   include BasicSerializable
 
+  attr_writer :computer
+
   def initialize(computer)
     @computer = computer
     @previous_guesses = []
@@ -61,5 +63,17 @@ class GameMenu
         final_guess
       end
     end
+  end
+
+  def serialize
+    obj = {}
+    instance_variables.map do |var|
+      obj[var] = if var == :@computer
+                   @computer.serialize
+                 else
+                   @@serializer.dump(instance_variable_get(var))
+                 end
+    end
+    @@serializer.dump(obj)
   end
 end
