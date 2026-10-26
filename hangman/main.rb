@@ -1,3 +1,4 @@
+require 'debug'
 require_relative 'lib/words'
 require_relative 'lib/computer'
 require_relative 'lib/menu_operation'
@@ -10,6 +11,7 @@ max_word_length = 12
 menu = MenuOperation.new
 main_menu = HashMenu.new
 
+binding.b
 input = menu.operate(main_menu)
 
 if input == '1'
