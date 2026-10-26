@@ -10,29 +10,37 @@ class GameMenu
     puts "Guesses remaining: #{@guesses_remaining}"
     puts "Incorrect letters: #{@incorrect_guesses}"
     puts @computer.answer.join(' ')
-    puts 'Please guess word'
+    puts "Please guess word or enter 'save' to save"
+  end
+
+  def already_guessed?
+    @previous_guesses.include?(@input)
   end
 
   def ask_input
     loop do
       display
-      @input = gets.chomp.upcase
-      break if input != ''
+      @input = gets.chomp.downcase
+      if already_guessed?
+        puts 'Already used. Try again'
+        redo
+      end
+      break if @input != ''
     end
   end
 
   def single_letter_guess
-    if correct_letter?(@input)
-      computer.update_answer
+    if @computer.correct_letter?(@input)
+      @computer.update_answer(@input)
     else
-      incorrect_guesses << input
+      @incorrect_guesses << @input
     end
     @guesses_remaining -= 1
   end
 
   def final_guess
     @guesses_remaining = 0
-    if computer.correct_word?(@input)
+    if @computer.correct_word?(@input)
       @win = true
     else
       puts 'Game over'
@@ -42,6 +50,9 @@ class GameMenu
   def play_game
     until @guesses_remaining.zero?
       ask_input
+      break 'save' if @input == 'save'
+
+      @previous_guesses << @input
       if @input.length == 1
         single_letter_guess
       else

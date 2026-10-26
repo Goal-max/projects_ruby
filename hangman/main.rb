@@ -19,5 +19,6 @@ if input == '1'
                                   min_word_length,
                                   max_word_length))
   game_menu = GameMenu.new(computer)
-  game_menu.ask_input
+  game_menu.play_game
+  f = File.open('saved_game.txt', 'w')
 end
