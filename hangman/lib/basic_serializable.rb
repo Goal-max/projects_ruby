@@ -4,8 +4,8 @@ module BasicSerializable
   def serialize
     obj = {}
     instance_variables.map do |var|
-      array_serialized = @@serializer.dump(instance_variable_get(var))
-      obj[var] = array_serialized
+      @var_value = instance_variable_get(var)
+      obj[var] = @@serializer.dump(@var_value)
     end
     @@serializer.dump(obj)
   end
