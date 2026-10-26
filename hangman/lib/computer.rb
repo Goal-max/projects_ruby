@@ -1,9 +1,9 @@
 class Computer
+  attr_reader :answer
+
   def initialize(words)
     @secret_word = words.words.sample
-    @answer = Array.new(words.length) { '_' }
-    @previous_guesses = []
-    @incorrect_guesses = []
+    @answer = Array.new(@secret_word.length) { '_' }
   end
 
   def correct_letter?

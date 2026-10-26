@@ -1,9 +1,9 @@
 class MenuOperation
-  def operate
+  def operate(menu)
     loop do
-      @current_menu.display
+      menu.display
       input = gets.chomp
-      break input if @current_menu.valid_input?(input)
+      break input if menu.valid_input?(input)
 
       puts 'Invalid input'
       puts
