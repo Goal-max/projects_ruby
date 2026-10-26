@@ -1,4 +1,6 @@
 class Computer
+  include BasicSerializable
+
   attr_reader :answer
 
   def initialize(words)

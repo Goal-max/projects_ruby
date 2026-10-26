@@ -1,4 +1,6 @@
 class GameMenu
+  include BasicSerializable
+
   def initialize(computer)
     @computer = computer
     @previous_guesses = []
