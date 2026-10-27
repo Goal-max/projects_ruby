@@ -3,9 +3,11 @@ class Computer
 
   attr_reader :answer
 
-  def initialize(words)
-    @secret_word = words.words.sample.split('')
-    @answer = Array.new(@secret_word.length) { '_' }
+  def initialize(words = nil)
+    unless words.nil?
+      @secret_word = words.words.sample.split('')
+      @answer = Array.new(@secret_word.length) { '_' }
+    end
   end
 
   def correct_letter?(input)

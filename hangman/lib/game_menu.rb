@@ -3,11 +3,13 @@ class GameMenu
 
   attr_writer :computer
 
-  def initialize(computer)
-    @computer = computer
-    @previous_guesses = []
-    @incorrect_guesses = []
-    @guesses_remaining = 8
+  def initialize(computer = nil)
+    unless computer.nil?
+      @computer = computer
+      @previous_guesses = []
+      @incorrect_guesses = []
+      @guesses_remaining = 8
+    end
   end
 
   def display
@@ -75,5 +77,18 @@ class GameMenu
                  end
     end
     @@serializer.dump(obj)
+  end
+
+  def unserialize(string)
+    obj = @@serializer.parse(string)
+    obj.each_pair do |key, value|
+=begin
+      if key == '@computer'
+        @computer = Computer.new
+        @computer.unserialize(value)
+      else
+=end
+        instance_variable_set(key, @@serializer.parse(value))
+    end
   end
 end
