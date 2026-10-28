@@ -68,10 +68,10 @@ class GameMenu
   end
 
   def serialize
-    binding.b
     obj = {}
     instance_variables.map do |var|
-      obj[var] = if var == :@computer
+      obj[var] = if instance_variable_get(var).methods.include?(:serialize)
+      binding.b
                    @computer.serialize
                  else
                    @@serializer.dump(instance_variable_get(var))
