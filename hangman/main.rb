@@ -21,17 +21,10 @@ computer = Computer.new(Words.new(file_location,
 if input == '1'
   game_menu = GameMenu.new(computer)
 else
-=begin
-  computer_loaded = File.open('saved_computer.txt', 'r').gets
-  computer.unserialize(computer_loaded)
-=end
-  game_menu = GameMenu.new(computer)
+  game_menu = GameMenu.new
   game_loaded = File.open('saved_game_menu.txt', 'r').gets
   game_menu.unserialize(game_loaded)
-  binding.b
-#  game_menu.computer = computer
 end
-binding.b
 game_menu.play_game
 saved_game_menu = game_menu.serialize
 game_file = File.open('saved_game_menu.txt', 'w')

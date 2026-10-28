@@ -68,6 +68,7 @@ class GameMenu
   end
 
   def serialize
+    binding.b
     obj = {}
     instance_variables.map do |var|
       obj[var] = if var == :@computer
@@ -82,13 +83,13 @@ class GameMenu
   def unserialize(string)
     obj = @@serializer.parse(string)
     obj.each_pair do |key, value|
-=begin
       if key == '@computer'
         @computer = Computer.new
         @computer.unserialize(value)
       else
-=end
         instance_variable_set(key, @@serializer.parse(value))
+      end
     end
+    binding.b
   end
 end
