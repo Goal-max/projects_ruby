@@ -83,8 +83,10 @@ class GameMenu
   def unserialize(string)
     obj = @@serializer.parse(string)
     obj.each_pair do |key, value|
+      obj_class = Module.const_get(@@serializer.parse(value)['class'])
+      binding.b
       if key == '@computer'
-        @computer = Computer.new
+  @computer = Computer.new
         @computer.unserialize(value)
       else
         instance_variable_set(key, @@serializer.parse(value))

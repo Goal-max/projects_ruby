@@ -8,7 +8,6 @@ module BasicSerializable
       @var_value = instance_variable_get(var)
       obj[var] = @@serializer.dump(@var_value)
     end
-    binding.b
     @@serializer.dump(obj)
   end
 
