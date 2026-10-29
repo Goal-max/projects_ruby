@@ -71,7 +71,6 @@ class GameMenu
     obj = {}
     instance_variables.map do |var|
       obj[var] = if instance_variable_get(var).methods.include?(:serialize)
-                   binding.b
                    # why @computer different to instance_variable_get(var)
                    @computer.serialize
                  else

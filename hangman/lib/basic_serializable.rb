@@ -3,10 +3,12 @@ module BasicSerializable
 
   def serialize
     obj = {}
+    obj['class'] = self.class
     instance_variables.map do |var|
       @var_value = instance_variable_get(var)
       obj[var] = @@serializer.dump(@var_value)
     end
+    binding.b
     @@serializer.dump(obj)
   end
 
