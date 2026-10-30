@@ -5,6 +5,7 @@ require_relative 'lib/computer'
 require_relative 'lib/menu_operation'
 require_relative 'lib/hash_menu'
 require_relative 'lib/game_menu'
+require_relative 'lib/serialize_processor'
 
 file_location = '/home/rain/Downloads/google-10000-english-no-swears.txt'
 min_word_length = 5

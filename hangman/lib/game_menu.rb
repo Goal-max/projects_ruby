@@ -85,16 +85,7 @@ class GameMenu
     obj.each_pair do |key, value|
       binding.b
       obj_class = Module.const_get(@@serializer.parse(value)['class'])
-      binding.b
-=begin
-      if key == '@computer'
-  @computer = Computer.new
-        @computer.unserialize(value)
-      else
-        instance_variable_set(key, @@serializer.parse(value))
-      end
-=end
+      SerializeProcessor.new(string).process
     end
-    binding.b
   end
 end
