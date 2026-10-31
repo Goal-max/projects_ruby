@@ -6,15 +6,24 @@ class SerializeProcessor
 
   def processor
     @unserialized = @serializer.parse(@string)
-  end
-
-  def is_custom_object?
-    if @unserialized.class == Hash 
-      contains_class_key?
+    if custom_object?
+      obj = class_name.new
+      obj.unserialize(@string)
+      obj
+    else
+      @unserialized
     end
   end
 
-  def contains_class_key?(hash)
-    hash.include?('class')
+  def custom_object?
+    contains_class_key? if @unserialized.class == Hash 
+  end
+
+  def contains_class_key?
+    @unserialized.include?('class')
+  end
+
+  def class_name
+    Module.const_get(@unserialized['class'])
   end
 end

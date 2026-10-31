@@ -83,9 +83,8 @@ class GameMenu
   def unserialize(string)
     obj = @@serializer.parse(string)
     obj.each_pair do |key, value|
-      binding.b
-      obj_class = Module.const_get(@@serializer.parse(value)['class'])
-      SerializeProcessor.new(string).process
+      instance_variable_set(key, SerializeProcessor.new(value).processor)
     end
+    binding.b
   end
 end
