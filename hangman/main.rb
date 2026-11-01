@@ -25,6 +25,7 @@ else
   game_menu = GameMenu.new
   game_loaded = File.open('saved_game_menu.txt', 'r').gets
   game_menu.unserialize(game_loaded)
+  binding.b
 end
 game_menu.play_game
 saved_game_menu = game_menu.serialize

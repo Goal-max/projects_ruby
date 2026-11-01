@@ -5,6 +5,7 @@ class Computer
 
   def initialize(words = nil)
     unless words.nil?
+      @words = words
       @secret_word = words.words.sample.split('')
       @answer = Array.new(@secret_word.length) { '_' }
     end
