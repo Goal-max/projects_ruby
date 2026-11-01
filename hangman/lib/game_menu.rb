@@ -35,6 +35,14 @@ class GameMenu
     end
   end
 
+  def valid_input?(input)
+    if input.length > @computer.answer.length
+      puts 'You entered too many characters'
+    else
+      input.chars.all?(/[a-z]/)
+    end
+  end
+
   def single_letter_guess
     if @computer.correct_letter?(@input)
       @computer.update_answer(@input)
