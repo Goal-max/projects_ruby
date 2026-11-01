@@ -66,22 +66,4 @@ class GameMenu
       end
     end
   end
-
-  def serialize
-    obj = {}
-    instance_variables.map do |var|
-      obj[var] =
-      SerializeProcessor.new.serialize_processor(instance_variable_get(var))
-    end
-    binding.b
-    @@serializer.dump(obj)
-  end
-
-  def unserialize(string)
-    obj = @@serializer.parse(string)
-    obj.each_pair do |key, value|
-      instance_variable_set(key,
-                            SerializeProcessor.new.unserialize_processor(value))
-    end
-  end
 end
