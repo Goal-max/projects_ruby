@@ -9,6 +9,10 @@ class GameMenu
       @previous_guesses = []
       @incorrect_guesses = []
       @guesses_remaining = 8
+      @input_actions = {
+        one_character => single_letter_guess,
+        multiple_characters => final_guess
+      }
     end
   end
 
@@ -59,6 +63,17 @@ class GameMenu
     else
       puts 'Game over'
     end
+  end
+
+  def input_actions(input)
+    {
+      one_character => :single_letter_guess,
+      multiple_characters => :final_guess
+    }
+  end
+
+  def handle_input(input)
+    self.send@input_actions[input]
   end
 
   def play_game
