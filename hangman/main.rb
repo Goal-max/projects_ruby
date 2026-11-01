@@ -30,6 +30,3 @@ game_menu.play_game
 saved_game_menu = game_menu.serialize
 game_file = File.open('saved_game_menu.txt', 'w')
 game_file.puts saved_game_menu
-saved_computer = computer.serialize
-computer_file = File.open('saved_computer.txt', 'w')
-computer_file.puts saved_computer
