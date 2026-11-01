@@ -6,7 +6,6 @@ module BasicSerializable
     obj['class'] = self.class
     instance_variables.map do |var|
       @var_value = instance_variable_get(var)
-      binding.b
       obj[var] = @@serializer.dump(@var_value)
     end
     @@serializer.dump(obj)

@@ -70,21 +70,18 @@ class GameMenu
   def serialize
     obj = {}
     instance_variables.map do |var|
-      obj[var] = if instance_variable_get(var).methods.include?(:serialize)
-                   # why @computer different to instance_variable_get(var)
-                   @computer.serialize
-                 else
-                   @@serializer.dump(instance_variable_get(var))
-                 end
+      obj[var] =
+      SerializeProcessor.new.serialize_processor(instance_variable_get(var))
     end
+    binding.b
     @@serializer.dump(obj)
   end
 
   def unserialize(string)
     obj = @@serializer.parse(string)
     obj.each_pair do |key, value|
-      instance_variable_set(key, SerializeProcessor.new(value).processor)
+      instance_variable_set(key,
+                            SerializeProcessor.new.unserialize_processor(value))
     end
-    binding.b
   end
 end

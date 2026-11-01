@@ -1,10 +1,23 @@
 class SerializeProcessor
-  def initialize(string)
-    @string = string
+  def initialize
     @serializer = JSON
   end
 
-  def processor
+  def serialize_processor(var)
+    @var = var
+    if serialize_method?
+      @var.serialize
+    else
+      @serializer.dump(var)
+    end
+  end
+
+  def serialize_method?
+    @var.methods.include?(:serialize)
+  end
+
+  def unserialize_processor(string)
+    @string = string
     @unserialized = @serializer.parse(@string)
     if custom_object?
       obj = class_name.new
