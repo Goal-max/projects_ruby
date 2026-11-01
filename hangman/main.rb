@@ -15,17 +15,16 @@ menu = MenuOperation.new
 main_menu = HashMenu.new
 
 input = menu.operate(main_menu)
-computer = Computer.new(Words.new(file_location,
-                                min_word_length,
-                                max_word_length))
 
 if input == '1'
+  computer = Computer.new(Words.new(file_location,
+                                min_word_length,
+                                max_word_length))
   game_menu = GameMenu.new(computer)
 else
   game_menu = GameMenu.new
   game_loaded = File.open('saved_game_menu.txt', 'r').gets
   game_menu.unserialize(game_loaded)
-  binding.b
 end
 game_menu.play_game
 saved_game_menu = game_menu.serialize
