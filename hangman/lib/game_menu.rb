@@ -10,8 +10,8 @@ class GameMenu
       @incorrect_guesses = []
       @guesses_remaining = 8
       @input_actions = {
-        one_character => single_letter_guess,
-        multiple_characters => final_guess
+        :one_character => :single_letter_guess,
+        :multiple_characters => :final_guess
       }
     end
   end
@@ -35,15 +35,15 @@ class GameMenu
         puts 'Already used. Try again'
         redo
       end
-      break if @input != ''
+      break if valid_input?
     end
   end
 
-  def valid_input?(input)
-    if input.length > @computer.answer.length
+  def valid_input?
+    if @input.length > @computer.answer.length
       puts 'You entered too many characters'
     else
-      input.chars.all?(/[a-z]/)
+      @input.chars.all?(/[a-z]/)
     end
   end
 
@@ -65,15 +65,13 @@ class GameMenu
     end
   end
 
-  def input_actions(input)
-    {
-      one_character => :single_letter_guess,
-      multiple_characters => :final_guess
-    }
-  end
-
-  def handle_input(input)
-    self.send@input_actions[input]
+  def handle_input
+    input_type = if @input.length == 1
+                    :one_character
+                  else
+                    :multiple_characters
+                  end
+    send(@input_actions[input_type])
   end
 
   def play_game
@@ -82,11 +80,14 @@ class GameMenu
       break 'save' if @input == 'save'
 
       @previous_guesses << @input
+      handle_input
+=begin
       if @input.length == 1
         single_letter_guess
       else
         final_guess
       end
+=end
     end
   end
 end
