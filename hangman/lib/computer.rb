@@ -6,7 +6,7 @@ class Computer
   def initialize(words = nil)
     unless words.nil?
       @words = words
-      @secret_word = words.words.sample.split('')
+      @secret_word = words.words.sample.chars
       @answer = Array.new(@secret_word.length) { '_' }
     end
   end
@@ -16,7 +16,7 @@ class Computer
   end
 
   def correct_word?(input)
-    @secret_word == input
+    @secret_word == input.chars
   end
 
   def update_answer(input)

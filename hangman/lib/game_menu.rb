@@ -42,6 +42,8 @@ class GameMenu
   def valid_input?
     if @input.length > @computer.answer.length
       puts 'You entered too many characters'
+    elsif @input.length.zero?
+      puts 'No input entered'
     else
       @input.chars.all?(/[a-z]/)
     end
@@ -62,6 +64,7 @@ class GameMenu
       @win = true
     else
       puts 'Game over'
+      @computer.reveal_word
     end
   end
 
