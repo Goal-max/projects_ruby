@@ -1,10 +1,10 @@
 class Words
   attr_reader :words
 
-  def initialize(file_location, min_word_length, max_word_length)
-    @words_file = File.open(file_location)
-    @min_word_length = min_word_length
-    @max_word_length = max_word_length
+  def initialize
+    @words_file = File.open('/home/rain/Downloads/google-10000-english-no-swears.txt')
+    @min_word_length = 5
+    @max_word_length = 12
     @words = select_words
   end
 

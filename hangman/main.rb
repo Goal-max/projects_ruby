@@ -2,7 +2,7 @@ require 'debug'
 require_relative 'lib/basic_serializable'
 require_relative 'lib/words'
 require_relative 'lib/computer'
-require_relative 'lib/menu_operation'
+require_relative 'lib/test_menu_operation'
 require_relative 'lib/hash_menu'
 require_relative 'lib/game_menu'
 require_relative 'lib/serialize_processor'
@@ -14,7 +14,7 @@ max_word_length = 12
 menu = MenuOperation.new
 main_menu = HashMenu.new
 
-input = menu.operate(main_menu)
+menu.operate
 
 if input == '1'
   computer = Computer.new(Words.new(file_location,

@@ -22,6 +22,19 @@ class HashMenu
   end
 
   def valid_input?(input)
-    hash_menu.key?(input)
+    @input = input
+    hash_menu.key?(@input)
+  end
+
+  def menu_action
+    if @input == '1' 
+      computer = Computer.new(Words.new)
+      game_menu = GameMenu.new(computer)
+    else
+      game_menu = GameMenu.new
+      game_loaded = File.open('saved_game_menu.txt', 'r').gets
+      game_menu.unserialize(game_loaded)
+      game_menu
+    end
   end
 end
