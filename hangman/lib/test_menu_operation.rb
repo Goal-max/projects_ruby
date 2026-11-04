@@ -1,5 +1,5 @@
 class MenuOperation
-  attr_reader :menu_list
+  attr_accessor :menu_list
 
   def initialize
     @menu_list = [HashMenu.new(self)]
@@ -11,7 +11,7 @@ class MenuOperation
       @menu.display
       input = gets.chomp.downcase
       if @menu.valid_input?(input)
-        @menu.menu_action
+        @menu.menu_action(self)
       else
         error_message
       end

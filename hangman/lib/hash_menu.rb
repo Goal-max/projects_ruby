@@ -2,7 +2,6 @@ class HashMenu
   attr_reader :hash_menu
 
   def initialize(menu_operation)
-    @menu_operate = menu_operation
     @menu_items = ['New Game', 'Load Game']
     @hash_menu = create_hash_menu
   end
@@ -27,7 +26,8 @@ class HashMenu
     hash_menu.key?(@input)
   end
 
-  def menu_action
+  def menu_action(menu_operate)
+    @menu_operate = menu_operate
     if @input == '1' 
       computer = Computer.new(Words.new)
       game_menu = GameMenu.new(computer)
@@ -36,7 +36,6 @@ class HashMenu
       game_loaded = File.open('saved_game_menu.txt', 'r').gets
       game_menu.unserialize(game_loaded)
     end
-    binding.b
     @menu_operate.menu_list << game_menu
   end
 end

@@ -68,9 +68,11 @@ class GameMenu
     send(@input_actions[input_type])
   end
 
-  def menu_action
+  def menu_action(menu_operate)
+    @menu_operate = menu_operate
     @previous_guesses << @input
     handle_input
+    @menu_operate.menu_list.pop if @guesses_remaining.zero?
 =begin
     until @guesses_remaining.zero?
       ask_input
