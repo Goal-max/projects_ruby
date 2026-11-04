@@ -1,7 +1,8 @@
 class HashMenu
   attr_reader :hash_menu
 
-  def initialize
+  def initialize(menu_operation)
+    @menu_operate = menu_operation
     @menu_items = ['New Game', 'Load Game']
     @hash_menu = create_hash_menu
   end
@@ -34,7 +35,8 @@ class HashMenu
       game_menu = GameMenu.new
       game_loaded = File.open('saved_game_menu.txt', 'r').gets
       game_menu.unserialize(game_loaded)
-      game_menu
     end
+    binding.b
+    @menu_operate.menu_list << game_menu
   end
 end

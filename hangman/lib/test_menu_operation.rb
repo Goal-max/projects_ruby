@@ -1,20 +1,25 @@
 class MenuOperation
+  attr_reader :menu_list
+
   def initialize
-    @menu_list = [HashMenu.new]
+    @menu_list = [HashMenu.new(self)]
   end
 
   def operate
     loop do
-      @menu = menu_list.last
+      @menu = @menu_list.last
       @menu.display
-      input = gets.chomp
+      input = gets.chomp.downcase
       if @menu.valid_input?(input)
-        @menu = @menu.menu_action
-        binding.b
+        @menu.menu_action
       else
-        puts 'Invalid input. Please try again'
-        puts
+        error_message
       end
     end
+  end
+
+  def error_message
+    puts 'Invalid input. Please try again'
+    puts
   end
 end

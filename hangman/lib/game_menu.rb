@@ -27,20 +27,11 @@ class GameMenu
     @previous_guesses.include?(@input)
   end
 
-  def ask_input
-    loop do
-      display
-      @input = gets.chomp.downcase
-      if already_guessed?
-        puts 'Already used. Try again'
-        redo
-      end
-      break if valid_input?
-    end
-  end
-
-  def valid_input?
-    if @input.length > @computer.answer.length
+  def valid_input?(input)
+    @input = input
+    if already_guessed?
+      puts 'Already used. Try again'
+    elsif @input.length > @computer.answer.length
       puts 'You entered too many characters'
     elsif @input.length.zero?
       puts 'No input entered'
@@ -70,27 +61,27 @@ class GameMenu
 
   def handle_input
     input_type = if @input.length == 1
-                    :one_character
+                  :one_character
                   else
                     :multiple_characters
                   end
     send(@input_actions[input_type])
   end
 
-  def play_game
+  def menu_action
+    @previous_guesses << @input
+    handle_input
+=begin
     until @guesses_remaining.zero?
       ask_input
       break 'save' if @input == 'save'
 
-      @previous_guesses << @input
       handle_input
-=begin
       if @input.length == 1
         single_letter_guess
       else
         final_guess
       end
 =end
-    end
   end
 end

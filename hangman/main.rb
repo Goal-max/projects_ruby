@@ -12,7 +12,6 @@ min_word_length = 5
 max_word_length = 12
 
 menu = MenuOperation.new
-main_menu = HashMenu.new
 
 menu.operate
 
