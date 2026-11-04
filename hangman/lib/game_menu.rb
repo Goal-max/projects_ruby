@@ -52,6 +52,7 @@ class GameMenu
   def final_guess
     @guesses_remaining = 0
     if @computer.correct_word?(@input)
+      puts 'You win'
       @win = true
     else
       puts 'Game over'
@@ -60,12 +61,16 @@ class GameMenu
   end
 
   def handle_input
-    input_type = if @input.length == 1
-                  :one_character
-                  else
-                    :multiple_characters
-                  end
-    send(@input_actions[input_type])
+    if @guesses_remaining == 1
+      final_guess
+    else 
+      input_type = if @input.length == 1
+                    :one_character
+                    else
+                      :multiple_characters
+                    end
+      send(@input_actions[input_type])
+    end
   end
 
   def menu_action(menu_operate)
