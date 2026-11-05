@@ -2,14 +2,12 @@ require 'debug'
 require_relative 'lib/basic_serializable'
 require_relative 'lib/words'
 require_relative 'lib/computer'
-require_relative 'lib/test_menu_operation'
+require_relative 'lib/menu_operation'
 require_relative 'lib/hash_menu'
 require_relative 'lib/game_menu'
 require_relative 'lib/serialize_processor'
-
-file_location = '/home/rain/Downloads/google-10000-english-no-swears.txt'
-min_word_length = 5
-max_word_length = 12
+require_relative 'lib/quit_game'
+require_relative 'lib/save_game'
 
 menu = MenuOperation.new
 

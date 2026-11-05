@@ -20,7 +20,7 @@ class GameMenu
     puts "Guesses remaining: #{@guesses_remaining}"
     puts "Incorrect letters: #{@incorrect_guesses}"
     puts @computer.answer.join(' ')
-    puts "Please guess word or enter 'save' to save"
+    puts "Please guess word or enter 'quit' to quit"
   end
 
   def already_guessed?
@@ -63,7 +63,9 @@ class GameMenu
   def handle_input
     if @guesses_remaining == 1
       final_guess
-    else 
+    elsif @input == 'quit'
+      @menu_operate.add_menu(QuitGame.new)
+    else
       input_type = if @input.length == 1
                     :one_character
                     else
@@ -75,7 +77,7 @@ class GameMenu
 
   def menu_action(menu_operate)
     @menu_operate = menu_operate
-    @previous_guesses << @input
+    @previous_guesses << @input unless @input == 'quit'
     handle_input
     @menu_operate.menu_list.pop if @guesses_remaining.zero?
 =begin
