@@ -28,7 +28,7 @@ class HashMenu
 
   def menu_action(menu_operate)
     @menu_operate = menu_operate
-    if @input == '1' 
+    if @input == '1'
       computer = Computer.new(Words.new)
       game_menu = GameMenu.new(computer)
     else
