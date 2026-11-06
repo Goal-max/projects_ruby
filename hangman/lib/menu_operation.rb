@@ -1,4 +1,6 @@
 class MenuOperation
+  include BasicSerializable
+
   attr_accessor :menu_list
 
   def initialize

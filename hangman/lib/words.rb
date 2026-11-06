@@ -1,4 +1,6 @@
 class Words
+  include BasicSerializable
+
   attr_reader :words
 
   def initialize

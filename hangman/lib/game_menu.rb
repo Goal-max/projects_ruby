@@ -71,6 +71,7 @@ class GameMenu
                     else
                       :multiple_characters
                     end
+      binding.b
       send(@input_actions[input_type])
     end
   end
@@ -80,17 +81,5 @@ class GameMenu
     @previous_guesses << @input unless @input == 'quit'
     handle_input
     @menu_operate.menu_list.pop if @guesses_remaining.zero?
-=begin
-    until @guesses_remaining.zero?
-      ask_input
-      break 'save' if @input == 'save'
-
-      handle_input
-      if @input.length == 1
-        single_letter_guess
-      else
-        final_guess
-      end
-=end
   end
 end

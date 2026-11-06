@@ -18,7 +18,7 @@ class SerializeProcessor
 
   def unserialize_processor(string)
     @string = string
-    @unserialized = @serializer.parse(@string)
+    @unserialized = @serializer.parse(@string, symbolize_names: true)
     if custom_object?
       obj = class_name.new
       obj.unserialize(@string)
@@ -33,10 +33,10 @@ class SerializeProcessor
   end
 
   def contains_class_key?
-    @unserialized.include?('class')
+    @unserialized.include?(:class)
   end
 
   def class_name
-    Module.const_get(@unserialized['class'])
+    Module.const_get(@unserialized[:class])
   end
 end
