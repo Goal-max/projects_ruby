@@ -19,6 +19,10 @@ class Computer
     @secret_word == input.chars
   end
 
+  def word_complete?
+    @secret_word == @answer
+  end
+
   def update_answer(input)
     @secret_word.each_with_index do |letter, index|
       @answer[index] = input if input == letter

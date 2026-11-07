@@ -21,6 +21,7 @@ class GameMenu
     puts "Incorrect letters: #{@incorrect_guesses}"
     puts @computer.answer.join(' ')
     puts "Please guess word or enter 'quit' to quit"
+    @computer.reveal_word
   end
 
   def already_guessed?
@@ -47,32 +48,39 @@ class GameMenu
       @incorrect_guesses << @input
     end
     @guesses_remaining -= 1
+    if @computer.word_complete?
+      win
+      @guesses_remaining = 0
+    elsif @guesses_remaining.zero?
+      lose
+    end
   end
 
   def final_guess
     @guesses_remaining = 0
     if @computer.correct_word?(@input)
-      puts 'You win'
-      @win = true
+      win
     else
-      puts 'Game over'
-      @computer.reveal_word
+      lose
     end
   end
 
+  def win
+      puts 'You win'
+  end
+
+  def lose
+    puts 'Game over'
+    @computer.reveal_word
+  end
+
   def handle_input
-    if @guesses_remaining == 1
-      final_guess
+    if @input.length == 1
+      single_letter_guess
     elsif @input == 'quit'
       @menu_operate.add_menu(QuitGame.new)
     else
-      input_type = if @input.length == 1
-                    :one_character
-                    else
-                      :multiple_characters
-                    end
-      binding.b
-      send(@input_actions[input_type])
+      final_guess
     end
   end
 
