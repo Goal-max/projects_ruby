@@ -9,10 +9,6 @@ class GameMenu
       @previous_guesses = []
       @incorrect_guesses = []
       @guesses_remaining = 8
-      @input_actions = {
-        :one_character => :single_letter_guess,
-        :multiple_characters => :final_guess
-      }
     end
   end
 
@@ -21,7 +17,6 @@ class GameMenu
     puts "Incorrect letters: #{@incorrect_guesses}"
     puts @computer.answer.join(' ')
     puts "Please guess word or enter 'quit' to quit"
-    @computer.reveal_word
   end
 
   def already_guessed?
@@ -66,7 +61,7 @@ class GameMenu
   end
 
   def win
-      puts 'You win'
+    puts 'You win'
   end
 
   def lose
